@@ -9,6 +9,8 @@
     ],
     "java.project.sourcePaths": [
         "src/main/java/livreur/model",
-        "src/main/java/livreur/view"
+        "src/main/java/livreur/view",
+        "src/main/java/pizzaiolo/model",
+        "src/main/java/pizzaiolo/view"
     ]
 }
