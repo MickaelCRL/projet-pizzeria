@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Page de Connexion</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../static/css/style.css">
 </head>
 <?php include("../view/menu.php"); ?>
 <body>
-    <form method="post" action="">
+    <form id="form_field" method="post" action="">
         <label for="email">Adresse email : </label>
         <input type="mail" name="email" required><br>
 
