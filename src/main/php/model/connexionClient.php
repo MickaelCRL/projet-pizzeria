@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Page de Connexion</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
-<?php include("view/menu.php"); ?>
+<?php include("../view/menu.php"); ?>
 <body>
     <form method="post" action="">
         <label for="email">Adresse email : </label>
@@ -20,11 +20,11 @@
     <br>
     <a href="inscription.php" id="lien_visible"> Pas encore de compte ? </a>
 </body>
-<?php include("view/footer.html"); ?>
+<?php include("../view/footer.html"); ?>
 </html>
 <?php
 // Connexion à la base de données
-require_once("config/connexion.php");
+require_once("../config/connexion.php");
 connexion::connect();
 $pdo = connexion::pdo();
 

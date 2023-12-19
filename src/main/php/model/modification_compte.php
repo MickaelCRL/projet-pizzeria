@@ -2,13 +2,13 @@
 <html>
 <head>
     <title>Modification de compte</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
 <body>
    
 
     <?php
-    include("view/menu.php");
+    include("../view/menu.php");
     // BEGIN: PHP code for form submission
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Retrieve form data
@@ -24,7 +24,7 @@
             echo "<p class='erreur'> Votre mot de passe et sa confirmation ne correspondent pas. Essayez à nouveau !</p>";
         } else {
             // Connexion à la base de donnée 
-            require_once("config/connexion.php");
+            require_once("../config/connexion.php");
             connexion::connect();
             $pdo = connexion::pdo();
 
@@ -81,5 +81,5 @@
     </form>
 </body>
 <br>
-<?php include("view/footer.html"); ?>
+<?php include("../view/footer.html"); ?>
 </html>

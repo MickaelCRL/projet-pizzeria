@@ -2,16 +2,16 @@
 <html>
 <head>
     <title>Pizzas</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
 <body>
-    <?php include("view/menu.php"); ?>
+    <?php include("../view/menu.php"); ?>
     <main class="mainPizza">
         <?php
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
-        require_once("config/connexion.php");
+        require_once("../config/connexion.php");
         connexion::connect();
         $pdo = connexion::pdo();
         $requete = "SELECT * FROM VuePizzaProposee";
@@ -24,13 +24,13 @@
                 $allergenes = htmlspecialchars($row['nomAllergene']);
 
                 echo "<div class='pizza-container'>";
-                echo "<img src='$lien_image' alt='Pizza' class='pizza-image'>";
+                echo "<img src='../$lien_image' alt='Pizza' class='pizza-image'>";
                 echo "<p class='pizza-title'>$nom</p>";
                 echo "<p class='pizza-allergenes'>Allergènes : $allergenes</p>";
                 echo " <div id='pizza-details'>
                 <button id='order-button'>
                     Ajouter au panier
-                    <img src='img/shop_icon.png' alt='Shop Icon' id='shop-icon'>
+                    <img src='../img/shop_icon.png' alt='Shop Icon' id='shop-icon'>
                 </button>
             </div> ";
                 echo "</div>";
@@ -45,5 +45,5 @@
 
 </body>
 <br>
-<?php include("view/footer.html"); ?>
+<?php include("../view/footer.html"); ?>
 </html>

@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pizza Paradise</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body>
-    <?php include("view/menu.php"); ?>
+    <?php include("../view/menu.php"); ?>
     <main>
         <?php
          if (session_status() === PHP_SESSION_NONE) {
@@ -27,21 +27,21 @@
         <button id="logout_button">
             <a href="logout.php">
                 Se déconnecter           
-                <img src="img/user_icon.png" alt="user icon" id="user-icon">   
+                <img src="../img/user_icon.png" alt="user icon" id="user-icon">   
             </a>             
         </button>
         <br>
         <button id="modif_button">
             <a href="modification_compte.php">
                 Modifier votre compte           
-                <img src="img/user_icon.png" alt="user icon" id="user-icon">   
+                <img src="../img/user_icon.png" alt="user icon" id="user-icon">   
             </a>             
         </button>
         <br>
         <button id="delete_button" onclick="confirmDelete()">
             <a href="#">
                 Supprimer votre compte
-                <img src="img/user_icon.png" alt="user icon" id="user-icon">
+                <img src="../img/user_icon.png" alt="user icon" id="user-icon">
             </a>
         </button>
 </main>
@@ -54,6 +54,6 @@
             } else {}
         }
     </script>
-    <?php include("view/footer.html"); ?>
+    <?php include("../view/footer.html"); ?>
 </body>
 </html>
