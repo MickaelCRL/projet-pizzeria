@@ -70,7 +70,9 @@
                 session_start();
                 $_SESSION['nom'] = $nom;
                 $_SESSION['prenom'] = $prenom;
-                $_SESSION['idCompteClient'] = $Id; 
+                $_SESSION['idCompteClient'] = $Id;
+                $_SESSION["panier"] = array();
+                $_SESSION["prixTotal"] = 0; 
             
                 header('Location: espace_compte.php');
                 exit();

@@ -34,12 +34,20 @@ public class OutilsJDBC {
             Statement st;
             if (type == 0) {
                 st = co.createStatement();
-            } else {
+                res = st.executeQuery(requete);
+            } else if (type == 1) {
                 st = co.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
                         ResultSet.CONCUR_READ_ONLY);
+                res = st.executeQuery(requete);
             }
-            ;
-            res = st.executeQuery(requete);
+            else{
+                st = co.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+                        ResultSet.CONCUR_UPDATABLE);
+                int nbUpdate = st.executeUpdate(requete);
+                System.out.println("Nombre de lignes modifiées : " + nbUpdate);
+            }
+           
+            
         } catch (SQLException e) {
             System.out.println("Problème lors de l'exécution de la requete : " + requete);
         }

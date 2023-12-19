@@ -57,6 +57,8 @@ if ($resultat) {
             $_SESSION["idCompteClient"] = $utilisateur["idCompteClient"];
             $_SESSION["nom"] = $utilisateur["nomClient"];
             $_SESSION["prenom"] = $utilisateur["prenomClient"];
+            $_SESSION["panier"] = array();
+            $_SESSION["prixTotal"] = 0;
             // Redirect to the home page
             header('Location: espace_compte.php');
             exit();

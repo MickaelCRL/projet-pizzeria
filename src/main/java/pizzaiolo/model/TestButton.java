@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 
 class TestJButton extends JFrame
@@ -17,6 +19,8 @@ class TestJButton extends JFrame
     private JScrollPane scrollPane;
     private String[] columns = new String[3];
     private String[][] data;
+    private OutilsJDBC o;
+    private Connection maConnection;
     JButton button = new JButton();
 
     CompteARebours.CompteAReboursTask cab;
@@ -35,9 +39,9 @@ class TestJButton extends JFrame
     public void getNomPizza(){ //TODO : récupérer les ingrédients des pizzas dans la base de données
        nomPizzaList = new ArrayList<>();
        ingredientsPizzaList = new ArrayList<>();
-        OutilsJDBC o = new OutilsJDBC();
-        Connection maConnection = o.openConnection(url);
-        ResultSet monResultat = o.exec1Requete("SELECT * FROM Pizza", maConnection, 0);
+        this.o = new OutilsJDBC();
+        maConnection = o.openConnection(url);
+        ResultSet monResultat = o.exec1Requete("SELECT * FROM Pizza WHERE etatPizza=false", maConnection, 0);
         try {
             while (monResultat.next()) {
                 String nomPizza = monResultat.getString(2);
@@ -49,7 +53,6 @@ class TestJButton extends JFrame
             System.out.println("Erreur conçernant le ResultSet");
         }
 
-        o.closeConnection(maConnection);
 
         //mettre les données de l'ArrayList dans le tableau pour le modèle du JTable
         data = new String[nomPizzaList.size()][3];
@@ -64,10 +67,9 @@ class TestJButton extends JFrame
 
 
 
-    public TestJButton()
+    public TestJButton(OutilsJDBC o)
     {
-
-
+        this.o = o;
         //paramètres de la fenêtre
         setTitle("Pizza Paradise - interface du pizzaïolo");
         setSize(500,350);
@@ -87,7 +89,7 @@ class TestJButton extends JFrame
         cab = new CompteARebours.CompteAReboursTask();
         timer.scheduleAtFixedRate(cab, 0, 1000);
         cabString = cab.compteARebours;
-        System.out.println("INITIAL : "+cabString);
+        //System.out.println("INITIAL : "+cabString);
 
 
         //data = new String[][]{
@@ -122,8 +124,9 @@ class TestJButton extends JFrame
                         int choix = JOptionPane.showConfirmDialog(null, "Voulez-vous valider la préparation de cette pizza ?", "Validation de la préparation", JOptionPane.YES_NO_OPTION);
 
                         if (choix == JOptionPane.YES_OPTION) {
-                            System.out.println(table.getSelectedRow());
+                            //System.out.println(table.getSelectedRow());
                             data = removeRowFromData(data,table.getSelectedRow());
+                            terminerPizza(table.getModel().getValueAt(table.getSelectedRow(),0).toString());
                             ((DefaultTableModel)table.getModel()).removeRow(table.getSelectedRow());
 
                         } else {
@@ -174,21 +177,50 @@ class TestJButton extends JFrame
     }
 
     public static void main(String args[]) {
+        OutilsJDBC o = new OutilsJDBC();
+        TestJButton f = new TestJButton(o);
         SwingUtilities.invokeLater(() -> {
-            TestJButton f = new TestJButton();
+            
             f.setVisible(true);
+
+            f.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                // Termine l'application et ferme la connexion lorsque la fenêtre est fermée
+                o.closeConnection(f.maConnection);
+                System.exit(0); 
+            }
+        });
+
 
             // Use a Timer to update the countdown every second
             Timer timer = new Timer(1000, e -> f.updateCountdown());
             timer.start();
+
+            
+
         });
+
+         while (f.isVisible()) {
+            // Effectuez ici les actions que vous souhaitez répéter jusqu'à la fermeture du JFrame
+
+            try {
+                Thread.sleep(1000); // Met le thread en pause pendant 1 seconde (juste pour l'exemple)
+                System.out.println("Ouais on est là");
+
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+        }
+
+
+
     }
 
 
     private void updateCountdown() {
         int selectedRow = table.getSelectedRow();
         cabString = cab.compteARebours;
-        System.out.println("UPDATE : " + cabString);
+        //System.out.println("UPDATE : " + cabString);
 
         for (int i = 0; i < data.length; i++) {
             data[i][2] = cabString;
@@ -233,6 +265,12 @@ class TestJButton extends JFrame
             // Si l'index est invalide, retournez le tableau original sans modification
             return originalArray;
         }
+    }
+
+    public void terminerPizza(String nomPizzaASupp){
+        System.out.println("Suppression de la pizza "+nomPizzaASupp+" de la base de données");
+        o.exec1Requete("UPDATE Pizza SET etatPizza=true WHERE nomPizza = '"+nomPizzaASupp+"'", maConnection, 2);
+
     }
 
 }

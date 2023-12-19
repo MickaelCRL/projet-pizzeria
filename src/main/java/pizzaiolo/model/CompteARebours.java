@@ -15,7 +15,7 @@ public class CompteARebours {
     public static String getCompteARebours() {
         int minutes = tempsRestant / 60;
         int secondes = tempsRestant % 60;
-        System.out.println(String.format("%02d:%02d", minutes, secondes));
+        //System.out.println(String.format("%02d:%02d", minutes, secondes));
         return String.format("%02d:%02d", minutes, secondes);
 
     }
@@ -36,7 +36,7 @@ public class CompteARebours {
     }
 
     private static void annulerCompteARebours() {
-        System.out.println("Le compte à rebours de 15 minutes est terminé.");
+        //System.out.println("Le compte à rebours de 15 minutes est terminé.");
         System.exit(0); // Terminer le programme après la fin du compte à rebours
     }
 }
