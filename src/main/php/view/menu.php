@@ -1,6 +1,6 @@
 <header>
     <div id="title-container">
-        <img src="../img/pizza_icon.png" alt="Pizza Icon" id="logo">
+        <img src="../static/img/pizza_icon.png" alt="Pizza Icon" id="logo">
         <h1>Pizza Paradise</h1>
     </div>
     <nav>
