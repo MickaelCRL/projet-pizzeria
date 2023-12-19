@@ -6,7 +6,7 @@
     <title>Page de Connexion</title>
 </head>
 <body>
-    <?php include("view/menu.php"); ?>
+    <?php include("../view/menu.php"); ?>
     <h2>Connexion</h2>
     <form method="post" action="">
         <label for="email">Adresse email : </label>
@@ -22,7 +22,7 @@
 </html>
 <?php
 // Connexion à la base de données
-require_once("config/connexion.php");
+require_once("../config/connexion.php");
 connexion::connect();
 $pdo = connexion::pdo();
 
