@@ -32,7 +32,6 @@ class PanelCommande extends JPanel {
         add(labelEtatLivraison);
         add(boutonLivrer);
         add(boutonRetard);
-
         setBorder(BorderFactory.createEtchedBorder());
     }
 }
