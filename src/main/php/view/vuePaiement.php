@@ -5,12 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Page de paiement</title>
-    <link rel="stylesheet" href="../static/css/style.css">
-    <link rel="stylesheet" href="../static/css/vuePaiement.css">
-    <script src="../static/js/calculateDistance.js" defer></script>
-    <script src="../static/js/verifPaiement.js" defer></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/vuePaiement.css">
 </head>
-<?php include("./menu.php"); ?>
+<?php include("../view/menu.php"); ?>
 
 <body>
     <section>
@@ -20,61 +18,34 @@
         <div class="formulaire">
 
             <h3>Informations personnelles</h3>
-            <form id="infos-personnelles" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+            <form id="infos-personnelles">
                 <label for="nom">Nom :</label>
-                <input type="text" id="nom" name="nom"
-                    value="<?php echo isset($_POST['nom']) ? htmlspecialchars($_POST['nom']) : ''; ?>" required><br><br>
+                <input type="text" id="nom" name="nom" required><br><br>
                 <label for="prenom">Prénom :</label>
-                <input type="text" id="prenom" name="prenom"
-                    value="<?php echo isset($_POST['prenom']) ? htmlspecialchars($_POST['prenom']) : ''; ?>"
-                    required><br><br>
+                <input type="text" id="prenom" name="prenom" required><br><br>
                 <label for="adresse">Adresse :</label>
-                <input type="text" id="adresse" name="adresse"
-                    value="<?php echo isset($_POST['adresse']) ? htmlspecialchars($_POST['adresse']) : ''; ?>"><br><br>
+                <input type="text" id="adresse" name="adresse" required><br><br>
                 <label for="ville">Ville :</label>
-                <input type="text" id="ville" name="ville"
-                    value="<?php echo isset($_POST['ville']) ? htmlspecialchars($_POST['ville']) : ''; ?>"><br><br>
+                <input type="text" id="ville" name="ville" required><br><br>
                 <label for="code-postal">Code Postal :</label>
-                <input type="text" id="code-postal" name="code-postal"
-                    value="<?php echo isset($_POST['code-postal']) ? htmlspecialchars($_POST['code-postal']) : ''; ?>"><br><br>
-                <button type="submit" name="submit">Enregistrer</button>
+                <input type="text" id="code-postal" name="code-postal" required><br><br>
             </form>
         </div>
     </section>
-    <?php if (!empty($_POST['adresse']) || !empty($_POST['ville']) || !empty($_POST['code-postal'])) {
-        if (empty($_POST['adresse']) || empty($_POST['ville']) || empty($_POST['code-postal'])) {
-            echo "<script>alert('Veuillez renseigner une adresse complète pour la livraison. Rien pas de livraison.');</script>";
-        } else {
-            include("../model/calculDistancePizzeria.php");
-            $destination = $_POST['adresse'] . ', ' . $_POST['ville'] . ', ' . $_POST['code-postal'] . ", France";
-            $distance = calculDistancePizzeria($addressStringPizzeria, $destination);
-            if($distance > 30 || $distance == -1 ){
-                echo "<script>alert('Vous êtes trop loin veuillez renseigner une autre adresse ');</script>";
-            }
-            else{
-                echo "<script>alert('Enregistré');</script>";
-            }
-        }
-    }
-    ?>
-
     <section>
         <div class="recap-commande">
-            <h2>Récapitulatif de la commande</h2>
+            <h3>Récapitulatif de la commande</h3>
             <!-- Cette div sera remplie dynamiquement -->
         </div>
         <button id="annuler">Annuler</button>
     </section>
     <section>
-        <h2>Choix du paiement</h2>
         <div class="choix-paiement">
-            <button id="paiement-cash" onclick="selectPayment('Paiement à la caisse')">Paiement à la caisse</button>
-            <button id="paiement-ligne" onclick="selectPayment('Paiement en ligne')">Paiement en ligne</button>
+            <h3>Choix du paiement</h3>
+            <button id="paiement-cash">Paiement à la caisse</button>
+            <button id="paiement-ligne">Paiement en ligne</button>
         </div>
-    </section>
-
-    <section>
-        <button id="confirmer" onclick="confirmCommande()">Confirmer la commande</button>
+        <button id="confirmer">Confirmer la commande</button>
     </section>
 </body>
 <?php include("../view/footer.html"); ?>

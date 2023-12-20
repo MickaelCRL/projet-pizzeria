@@ -40,7 +40,7 @@
                 <button id='compte-button'>
                     <a href='espace_compte.php'>
                         Espace compte             
-                        <img src='../static//img/user_icon.png' alt='user icon' id='user-icon'>  
+                        <img src='../static/img/user_icon.png' alt='user icon' id='user-icon'>  
                     </a>              
                 </button>
             
