@@ -30,12 +30,9 @@
                 echo "<p class='pizza-allergenes'>Allergènes : $allergenes</p>";
                 echo "<div id='pizza-details'>";
 
-                // Calculer le prix de la pizza et l'afficher 
-                $requete2 = "SELECT calculerPrixPizza($id) AS prix";
-                $resultat2 = $pdo->query($requete2);
-                $row2 = $resultat2->fetch(PDO::FETCH_ASSOC);
-                $prix = htmlspecialchars($row2['prix']);
-                echo "<p class='pizza-price'>$prix €</p>";
+                // Calculer le prix de la pizza et l'affiche
+                include ("calculerPrix.php");
+                calculerPrix($id);
 
                 // Afficher le bouton pour ajouter la pizza au panier
                 echo "<form action='ajoutPanier.php' method='post'>";
