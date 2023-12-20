@@ -14,9 +14,6 @@
             else{
                 echo " <a href='../model/connexionClient.php'>Se connecter</a>";
             }
-            if (isset($_SESSION["nom"])) {
-                echo "<a href='../model/panier.php'>Votre panier</a>";
-            }
         ?>     
     </nav>
 </header>

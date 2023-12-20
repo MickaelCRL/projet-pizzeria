@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Modification de compte</title>
-    <link rel="stylesheet" type="text/css" href="../static/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
 <body>
    
@@ -58,7 +58,7 @@
 }
     ?>
 
-    <form id="form_field" method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
+    <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
         <label for="nom">Nom :</label>
         <input type="text" id="nom" name="nom" required>
 

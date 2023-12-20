@@ -26,7 +26,6 @@ header {
 
 h1 {
     margin: 0;
-    color: orange;
 }
 
 nav {
@@ -78,7 +77,7 @@ nav a:hover {
     text-align: center;
 }
 
- #order-button, #compte-button, #co-button, #create_account_button, #connexion_button, #logout_button, #modif_button, #delete_button {
+#order-button, #compte-button, #co-button, #create_account_button, #connexion_button, #logout_button, #modif_button, #delete_button {
     margin-left: auto;
     margin-right: auto;
     padding: 10px 20px;
@@ -95,13 +94,11 @@ nav a:hover {
     display: flex;
     align-items: center;
     transition: background-color 0.3s ease;
-
 }
 
 #order-button:hover, #compte-button:hover, #co-button:hover, #create_account_button:hover, #connexion_button:hover, #logout_button:hover, #modif_button:hover, #delete_button:hover {
     background-color: black;
     color: yellow;
-
 }
 
 #shop-icon, #user-icon {
@@ -186,14 +183,11 @@ a{
 
 form {
     width: 400px; 
-    margin: 0 auto;
-}
-
-#form_field{
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     background-color: #f9f9f9;
+    margin: 0 auto;
 }
 
 label {
@@ -238,26 +232,4 @@ input {
     font-size: 16px;
     color: gray;
     text-align: center;
-}
-
-.pizza-price {
-    font-size: 18px; /* Taille de la police */
-    color: #333; /* Couleur du texte */
-    margin : 0 auto;
-    text-align: center !important;
-    justify-content: center;
-}
-
-.confirmation {
-    text-align: center;
-    margin-top: 20px;
-    color: green;
-}
-
-#prix{
-    text-align: center;
-    margin-top: 20px;
-    color: orange;
-    font-weight: bold;
-    font-size: 24px;
 }

@@ -14,8 +14,8 @@ import java.io.UnsupportedEncodingException;
 public class test
  {
     public static void main(String[] args) {
-        String origin = "19 rue du Gros Orme, La Norville, France"; // Adresse de départ
-        String destination = "20 Avenue des Champs-Élysées, Paris, France"; // Adresse d'arrivée
+        String origin = "Avenue des Sciences, Gif-sur-Yvette, 91190, France"; // Adresse de départ
+        String destination = "20 bd Thomas Gobert, Palaiseau, 91120, France"; // Adresse d'arrivée
         String apiKey = "AIzaSyCezhZK0sYf1t0WMS_x-T9k0IBGR4soPQA"; // Remplacez par votre clé d'API Google Maps
 
         try {

@@ -179,7 +179,7 @@ class TestJButton extends JFrame
     public static void main(String args[]) {
         OutilsJDBC o = new OutilsJDBC();
         TestJButton f = new TestJButton(o);
-        //SwingUtilities.invokeLater(() -> {
+        SwingUtilities.invokeLater(() -> {
             
             f.setVisible(true);
 
@@ -191,25 +191,20 @@ class TestJButton extends JFrame
             }
         });
 
+
             // Use a Timer to update the countdown every second
-            //Timer timer = new Timer(1000, e -> f.updateCountdown());
-            //timer.start();
+            Timer timer = new Timer(1000, e -> f.updateCountdown());
+            timer.start();
 
+            
 
-           
-        //});
+        });
 
-          Thread t =  new Thread() { // Déclaration d'un pour mettre à jour la vue en fonction des données de la base de données
-                public void run() {
-                    System.out.println("Mon traitement parallèle");                                   
-                }
-                };   
-                t.start(); // Lancement du thread      
-          while (f.isVisible()) {         
+         while (f.isVisible()) {
+            // Effectuez ici les actions que vous souhaitez répéter jusqu'à la fermeture du JFrame
+
             try {
-                Thread.sleep(1000); // Met à jour le compte à rebours toutes les secondes
-                t.sleep(3000);
-                f.updateCountdown();
+                Thread.sleep(1000); // Met le thread en pause pendant 1 seconde (juste pour l'exemple)
                 System.out.println("Ouais on est là");
 
             } catch (InterruptedException ex) {

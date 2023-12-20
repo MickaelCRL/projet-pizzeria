@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pizza Paradise</title>
-    <link rel="stylesheet" href="../static/css/style.css">
-    <script src="../static/js/confirmDelete.js"></script>
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body>
@@ -28,24 +27,33 @@
         <button id="logout_button">
             <a href="logout.php">
                 Se déconnecter           
-                <img src="../static/img/user_icon.png" alt="user icon" id="user-icon">   
+                <img src="../img/user_icon.png" alt="user icon" id="user-icon">   
             </a>             
         </button>
         <br>
         <button id="modif_button">
             <a href="modification_compte.php">
                 Modifier votre compte           
-                <img src="../static/img/user_icon.png" alt="user icon" id="user-icon">   
+                <img src="../img/user_icon.png" alt="user icon" id="user-icon">   
             </a>             
         </button>
         <br>
         <button id="delete_button" onclick="confirmDelete()">
             <a href="#">
                 Supprimer votre compte
-                <img src="../static/img/user_icon.png" alt="user icon" id="user-icon">
+                <img src="../img/user_icon.png" alt="user icon" id="user-icon">
             </a>
         </button>
-</main> 
+</main>
+<script>
+        function confirmDelete() {
+            var response = confirm("Êtes-vous sûr de vouloir supprimer votre compte ?");
+            if (response) {
+                // Si l'utilisateur clique sur OK, redirigez-le vers la page de suppression
+                window.location.href = "suppression_compte.php";
+            } else {}
+        }
+    </script>
     <?php include("../view/footer.html"); ?>
 </body>
 </html>
