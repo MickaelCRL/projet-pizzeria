@@ -72,10 +72,8 @@ public class OutilsJDBC {
         ResultSet monResultat = exec1Requete("SELECT * FROM Pizza", maConnection, 0);
 
 
-        //question 1
 
         System.out.println("------------------");
-        System.out.println("QUESTION 1");
         System.out.println("------------------");
 
         try {

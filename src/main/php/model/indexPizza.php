@@ -42,7 +42,7 @@
                         Espace compte             
                         <img src='../static//img/user_icon.png' alt='user icon' id='user-icon'>  
                     </a>              
-                </button>
+                </button> ubzzadi
             
             <button id='co-button'>
                     <a href='inscription.php'>
