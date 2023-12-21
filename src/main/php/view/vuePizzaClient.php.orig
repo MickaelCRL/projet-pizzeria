@@ -27,7 +27,17 @@
                 echo "<img src='../static/$lien_image' alt='Pizza' class='pizza-image'>";
                 echo "<p id='pizza-title'>$nom</p>";
                 echo "<p class='pizza-allergenes'>Allergènes : $allergenes</p>";
+<<<<<<< HEAD:src/main/php/view/vuePizzaClient.php
+                echo "<p class='pizza-price'>$prix €</p>";
                 echo "<div id='pizza-details'>";
+=======
+                echo "<div id='pizza-details'>";
+
+                // Calculer le prix de la pizza et l'affiche
+                include ("calculerPrix.php");
+                calculerPrix($id);
+
+>>>>>>> 89fd7b1a88f24a4054a4f97e60dd3a2a1cbebeac:src/main/php/model/pizza.php
                 // Afficher le bouton pour ajouter la pizza au panier
                 echo "<form action='../actions/ajoutPizzaPanier.php' method='post'>";
                 echo "<input type='hidden' name='idPizza' value='$id'>";
