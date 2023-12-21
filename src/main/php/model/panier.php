@@ -10,7 +10,6 @@ function recapitulatifPanier($panier, $pdo, $prixTotal)
 {
 
 
-
     foreach ($panier as $idPizza) {
         $requete = "SELECT * FROM VuePizzaProposee WHERE idPizza = :idPizza";
         $stmt = $pdo->prepare($requete);
@@ -35,7 +34,7 @@ function recapitulatifPanier($panier, $pdo, $prixTotal)
 
     echo "<br>";
     echo "<p id='prix'> Prix total de votre commande : $prixTotal € </p>";
-}
+}}
 
 
 

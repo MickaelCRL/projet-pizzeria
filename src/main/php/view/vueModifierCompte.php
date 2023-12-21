@@ -7,11 +7,7 @@
 </head>
 
 <body>
-    <?php
-    include("../view/menu.php");
-    include("../controller/controllerClient.php");
-    controllerClient::verifPassword();
-    ?>
+    <?php include("../view/menu.php"); ?>
 
     <form id="form_field" method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
         <label for="nom">Nom :</label>
@@ -34,6 +30,44 @@
 
         <input type="submit" value="Modifier son compte" id="create_account_button">
     </form>
+    <?php
+    include("../controller/controllerClient.php");
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Retrieve form data
+        $nom = $_POST["nom"];
+        $prenom = $_POST["prenom"];
+        $email = $_POST["email"];
+        $telephone = $_POST["telephone"];
+        $password = $_POST["password"];
+        $confirm_password = $_POST["confirm_password"];
+        if ($password != $confirm_password) {
+            echo "<p class='erreur'> Votre mot de passe et sa confirmation ne correspondent pas. Essayez à nouveau !</p>";
+        }
+        else {            
+            $idCompteClient = $_SESSION["idCompteClient"];
+            $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+            $resultat = controllerClient::updateCompteClient($idCompteClient, $nom, $prenom, $email, $telephone, $passwordHash);
+            if($resultat){
+                $_SESSION["nom"] = $nom;
+                $_SESSION["prenom"] = $prenom;
+                header('Location: vueEspaceCompte.php');
+                
+            }    
+            echo '<script>';
+            if ($resultat) {
+                echo 'alert("Modification réussie");'; // Affiche une alerte pour indiquer le succès
+            } else {
+                echo 'alert("Échec de la mise à jour");'; // Affiche une alerte pour indiquer l'échec
+            }
+            echo '</script>';
+            
+
+        }
+    }
+
+
+
+    ?>
 </body>
 <br>
 <?php include("../view/footer.html"); ?>

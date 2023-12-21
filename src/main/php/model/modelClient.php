@@ -5,42 +5,52 @@ include("../config/connexion.php");
 class modelClient
 {
 
-    public static function updateCompteClient($nom, $prenom, $email, $telephone, $password)
+    public static function update($idCompteClient, $nom, $prenom, $email, $telephone, $password)
     {
         connexion::connect();
         $pdo = connexion::pdo();
-        $existingAccountQuery = $pdo->prepare("SELECT idCompteClient FROM CompteClient WHERE adresseMail = :email");
+        $existingAccountQuery = $pdo->prepare("SELECT idCompteClient FROM CompteClient WHERE adresseMail = :email AND idCompteClient != :idCompteClient");
         $existingAccountQuery->bindParam(':email', $email);
+        $existingAccountQuery->bindParam(':idCompteClient', $idCompteClient);
         $existingAccountQuery->execute();
 
         if ($existingAccountQuery->rowCount() > 0) {
-            // L'adresse email est déjà utilisée'
-            echo "<p class='erreur'>Un compte avec cette adresse email existe déjà. Veuillez utiliser une autre adresse email.</p>";
-        } else {
-            session_start();
-            $idCompteClient = $_SESSION["idCompteClient"];
-            $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-            $sql = "UPDATE CompteClient SET CompteClient.adresseMail='$email', CompteClient.motDePasse='$passwordHash' WHERE CompteClient.idCompteClient = $idCompteClient";
+            return false;
+        } else {            
+           
+            $sql = "UPDATE CompteClient SET CompteClient.adresseMail='$email', CompteClient.motDePasse='$password' WHERE CompteClient.idCompteClient = $idCompteClient";
             $pdo->exec($sql);
             $sql = "UPDATE Client SET Client.nomClient='$nom', Client.prenomClient='$prenom', Client.telephone='$telephone' WHERE Client.idCompteClient = $idCompteClient";
-            $pdo->exec($sql);
-
-            $_SESSION["nom"] = $nom;
-            $_SESSION["prenom"] = $prenom;
-            exit();
+            $pdo->exec($sql);           
+            return true;
         }
 
     }
 
-    public static function connexion($email, $mot_de_passe)
+    public static function getPasswordHash($email)
     {
         connexion::connect();
         $pdo = connexion::pdo();
 
-        $requete = "SELECT CompteClient.idCompteClient,CompteClient.motDePasse, Client.nomClient, Client.prenomClient, CompteClient.motDePasse 
+        $requete = "SELECT CompteClient.motDePasse
         FROM CompteClient
         JOIN Client ON CompteClient.idCompteClient = Client.idCompteClient
         WHERE CompteClient.adresseMail = '$email'";
+
+        $resultat = $pdo->query($requete);
+        return $resultat;
+
+    }
+
+    public static function connexion($email, $password)
+    {
+        connexion::connect();
+        $pdo = connexion::pdo();
+
+        $requete = "SELECT CompteClient.idCompteClient, CompteClient.motDePasse, Client.nomClient, Client.prenomClient, CompteClient.motDePasse 
+        FROM CompteClient
+        JOIN Client ON CompteClient.idCompteClient = Client.idCompteClient
+        WHERE CompteClient.adresseMail = '$email' AND CompteClient.motDePasse = '$password'";
 
         $resultat = $pdo->query($requete);
         return $resultat;
@@ -67,7 +77,7 @@ class modelClient
         return $resultat;
     }
 
-    public static function creerCompteClient($nom, $prenom, $telephone, $nombreAleatoire, $Id, $password)
+    public static function creerCompteClient($nom, $prenom, $email, $telephone, $nombreAleatoire, $Id, $password)
     {        
         connexion::connect();
         $pdo = connexion::pdo();

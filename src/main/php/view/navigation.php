@@ -4,7 +4,7 @@
         <h1>Pizza Paradise</h1>
     </div>
     <nav>
-        <a href="./vueAcceuil.php">Accueil</a>
+        <a href="./vueAccueil.php">Accueil</a>
         <a href="./vuePizzaClient.php">Pizza</a>
         <?php 
             session_start();

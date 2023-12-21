@@ -1,12 +1,12 @@
 <?php
-include("../controller/controllerClient");
+include("../controller/controllerClient.php");
 session_start();
 $idCompteClient = $_SESSION["idCompteClient"];
 $resultat = controllerClient::deleteCompteClient($idCompteClient);
 
 if ($resultat) {
     session_destroy();
-    header('Location: view/vueAcceuil.php');
+    header('Location: ../view/vueAccueil.php');
     exit();
 } else {
     echo "<p class='erreur'> Échec de la requête SQL. </p>";

@@ -18,7 +18,7 @@
         }
         if (!isset($_SESSION["nom"])) {
             // Rediriger l'utilisateur vers la page de connexion s'il n'est pas connecté
-            header("Location: connexionClient.php");
+            header("Location: vueConnexion.php");
             exit();
         }
             

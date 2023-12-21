@@ -23,7 +23,7 @@
         if ($password != $confirm_password) {
             echo "<p class='erreur'> Votre mot de passe et sa confirmation ne correspondent pas. Essayez à nouveau !</p>";
         } else {
-            $resultat = controllerClient::newCompteClient($nom, $prenom, $telephone, $nombreAleatoire, $Id, $password);
+            $resultat = controllerClient::newCompteClient($nom, $prenom,$email, $telephone, $nombreAleatoire, $Id, $password);
             if(!$resultat){
                 echo "<p class='erreur'>Un compte avec cette adresse email existe déjà. Veuillez utiliser une autre adresse email.</p>";
                 echo "<p class='erreur'> <a href=../view/vueConnexion.php id='lien_erreur'> Ou bien, connectez vous. </a>  </p>";

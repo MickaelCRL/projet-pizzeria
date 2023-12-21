@@ -39,14 +39,14 @@
                 echo "
                 <div id='button-container'>
                 <button id='compte-button'>
-                    <a href='espace_compte.php'>
+                    <a href='vueEspaceCompte.php'>
                         Espace compte             
                         <img src='../static/img/user_icon.png' alt='user icon' id='user-icon'>  
                     </a>              
                 </button>
             
             <button id='co-button'>
-                    <a href='inscription.php'>
+                    <a href='vueConnexion.php'>
                     Se connecter
                     <img src='../static/img/user_icon.png' alt='user icon' id='user-icon'>
                     </a>

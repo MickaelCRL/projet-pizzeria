@@ -3,31 +3,29 @@ include("../model/modelClient.php");
 
 class controllerClient
 {
-    public static function verifPassword()
+    public static function updateCompteClient($idCompteClient, $nom, $prenom, $email, $telephone, $password)
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            // Retrieve form data
-            $nom = $_POST["nom"];
-            $prenom = $_POST["prenom"];
-            $email = $_POST["email"];
-            $telephone = $_POST["telephone"];
-            $password = $_POST["password"];
-            $confirm_password = $_POST["confirm_password"];
-
-            // Validate password and confirmation
-            if ($password != $confirm_password) {
-                echo "<p class='erreur'> Votre mot de passe et sa confirmation ne correspondent pas. Essayez à nouveau !</p>";
-            } else {
-                modelClient::updateCompteClient($nom, $prenom, $email, $telephone, $password);
-                header('Location: vueEspaceCompte.php');
-            }
-
-        }
-    }
-    public static function connexionCompteClient($email, $mot_de_passe)
-    {
-        $resultat = modelClient::connexion($email, $mot_de_passe);
+        $resultat = modelClient::update($idCompteClient, $nom, $prenom, $email, $telephone, $password);
         return $resultat;
+    }
+
+
+
+    public static function connexionCompteClient($email, $password)
+    {
+        $resultat = modelClient::getPasswordHash($email);
+        $passwordRow = $resultat->fetch(PDO::FETCH_ASSOC);
+        if ($passwordRow) {
+            $passwordHash = $passwordRow['motDePasse'];
+        } else {
+            return $resultat;
+        }
+
+        if (password_verify($_POST["mot_de_passe"], $passwordHash)) {
+            echo "$passwordHash";
+            $resultat = modelClient::connexion($email, $passwordHash);
+            return $resultat;
+        }
     }
 
     public static function deleteCompteClient($idCompteClient)
@@ -40,9 +38,10 @@ class controllerClient
         }
     }
 
-    public static function newCompteClient($nom, $prenom, $telephone, $nombreAleatoire, $Id, $password ){
-        $resultat = modelClient::creerCompteClient($nom, $prenom, $telephone, $nombreAleatoire, $Id, $password);
-        return $resultat;       
+    public static function newCompteClient($nom, $prenom, $email, $telephone, $nombreAleatoire, $Id, $password)
+    {
+        $resultat = modelClient::creerCompteClient($nom, $prenom, $email, $telephone, $nombreAleatoire, $Id, $password);
+        return $resultat;
     }
 }
 

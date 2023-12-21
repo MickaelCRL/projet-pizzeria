@@ -20,7 +20,7 @@
         <input type="submit" value="Se connecter" id="connexion_button">
     </form>
     <br>
-    <a href="inscription.php" id="lien_visible"> Pas encore de compte ? </a>
+    <a href="vueCreationCompte.php" id="lien_visible"> Pas encore de compte ? </a>
 </body>
 <?php include("../view/footer.html"); ?>
 
@@ -29,16 +29,14 @@
 include("../controller/controllerClient.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"];
-    $mot_de_passe = $_POST["mot_de_passe"];
+    $password = $_POST["mot_de_passe"];
 
 
-    $resultat = controllerClient::connexionCompteClient($email, $mot_de_passe);
-    if ($resultat->rowCount() == 0) {
-        echo "<p class='erreur'> Il n'existe aucun compte avec cette adresse email. Veuillez vérifier vos informations.</p>";
-    } else {
-        $utilisateur = $resultat->fetch(PDO::FETCH_ASSOC);
-
-        if (password_verify($mot_de_passe, $utilisateur["motDePasse"])) {
+    $resultat = controllerClient::connexionCompteClient($email, $password);   
+    if ($resultat) {
+        if ($resultat->rowCount() != 0) {
+            // Le mot de passe est correct
+            $utilisateur = $resultat->fetch(PDO::FETCH_ASSOC);
             session_start();
             $_SESSION["idCompteClient"] = $utilisateur["idCompteClient"];
             $_SESSION["nom"] = $utilisateur["nomClient"];
@@ -47,10 +45,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION["prixTotal"] = 0;
             header('Location: ../view/vueEspaceCompte.php');
         } else {
-            echo "<p class='erreur'> Échec de la connexion. Vérifiez votre mot de passe. </p>";
+            echo "<p class='erreur'> Échec de la connexion. Vérifiez votre adresse mail ou votre mot de passe. </p>";
         }
-
+    } else {
+        echo "<p class='erreur'> Échec de la connexion. Vérifiez votre adresse mail ou votre mot de passe. </p>";
     }
+
 }
 
 
