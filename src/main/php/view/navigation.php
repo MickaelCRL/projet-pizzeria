@@ -4,18 +4,18 @@
         <h1>Pizza Paradise</h1>
     </div>
     <nav>
-        <a href="../model/indexPizza.php">Accueil</a>
-        <a href="../model/pizza.php">Pizza</a>
+        <a href="./vueAcceuil.php">Accueil</a>
+        <a href="./vuePizzaClient.php">Pizza</a>
         <?php 
             session_start();
             if (isset($_SESSION["nom"])) {
-                echo "<a href='../model/espace_compte.php'>Espace compte</a>";
+                echo "<a href='./vueEspaceCompte.php'>Espace compte</a>";
             }
             else{
-                echo " <a href='../model/connexionClient.php'>Se connecter</a>";
+                echo " <a href='./vueConnexion.php'>Se connecter</a>";
             }
             if (isset($_SESSION["nom"])) {
-                echo "<a href='../view/vuePanier.php'>Votre panier</a>";
+                echo "<a href='./vuePanier.php'>Votre panier</a>";
             }
         ?>     
     </nav>

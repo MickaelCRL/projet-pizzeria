@@ -14,6 +14,6 @@ if (isset($_COOKIE[session_name()])) {
 session_destroy();
 
 // Rediriger vers la page d'accueil
-header("Location: indexPizza.php");
+header("Location: ../view/vueAccueil.php");
 exit();
 ?>

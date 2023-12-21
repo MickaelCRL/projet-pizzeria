@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <?php include("../view/menu.php"); ?>
+    <?php include("./navigation.php"); ?>
 
     <main>
         <div id="presentation">
@@ -17,16 +17,17 @@
             <div id="pizza-details">
                 <p id="pizza-title">Pizza du moment : 4 fromages</p>
                 <button id="order-button">
-                    Commander
-                    <img src="../static/img/shop_icon.png" alt="Shop Icon" id="shop-icon">
+                    <a href='vuePizzaClient.php'>
+                        Commander
+                        <img src="../static/img/shop_icon.png" alt="Shop Icon" id="shop-icon">
                 </button>
-            </div> 
+            </div>
         </div>
         <div id="additional-text">
             Toutes vos pizzas sont personnalisables ! <br>
             Des boissons ou des desserts sont également disponibles.
         </div>
-    
+
         <div id="discount-text">
             -50% sur votre prochaine commande si votre dernière commande dure plus de 45min.
         </div>
@@ -54,13 +55,14 @@
                 ";
             }
             ?>
-       
         <br>
     </main>
 
-    <?php include("../view/footer.html"); ?>
+    <footer>
+        &copy; 2023-2024 Pizza Paradise. Tous droits réservés.
+    </footer>
 
-    
+
 </body>
 
 </html>

@@ -3,9 +3,9 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class vueLivreur extends JFrame {
+public class VueLivreur extends JFrame {
 
-    public vueLivreur(ArrayList<PanelCommande> commandes) {
+    public VueLivreur(ArrayList<PanelCommande> commandes) {
         setTitle("Liste des livraisons à effectuer");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
@@ -32,6 +32,6 @@ public class vueLivreur extends JFrame {
         commandes.add(new PanelCommande(2, "Client2", "Adresse2", "987654321",
                 new ArrayList<>(Arrays.asList("Pizza3", "Pizza4")), "Instructions", "En cours"));
 
-        SwingUtilities.invokeLater(() -> new vueLivreur(commandes));
+        SwingUtilities.invokeLater(() -> new VueLivreur(commandes));
     }
 }

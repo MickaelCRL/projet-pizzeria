@@ -10,11 +10,11 @@
     <script src="../static/js/calculateDistance.js" defer></script>
     <script src="../static/js/verifPaiement.js" defer></script>
 </head>
-<?php include("./menu.php"); ?>
+<?php include("./navigation.php"); ?>
 
 <body>
     <section>
-        <h1>Commande en ligne</h1>
+        <h1 class="vuePaiement">Commande en ligne</h1>
     </section>
     <section>
         <div class="formulaire">
@@ -41,28 +41,31 @@
             </form>
         </div>
     </section>
-    <?php if (!empty($_POST['adresse']) || !empty($_POST['ville']) || !empty($_POST['code-postal'])) {
+    <?php 
+    include("../controller/controllerPizzeria.php");
+    if (!empty($_POST['adresse']) || !empty($_POST['ville']) || !empty($_POST['code-postal'])) {
         if (empty($_POST['adresse']) || empty($_POST['ville']) || empty($_POST['code-postal'])) {
             echo "<script>alert('Veuillez renseigner une adresse complète pour la livraison. Rien pas de livraison.');</script>";
-        } else {
-            include("../model/calculDistancePizzeria.php");
+        } else {            
             $destination = $_POST['adresse'] . ', ' . $_POST['ville'] . ', ' . $_POST['code-postal'] . ", France";
-            $distance = calculDistancePizzeria($addressStringPizzeria, $destination);
+            $distance = controllerPizzeria::calculDistancePizzeria($destination);
             if($distance > 30 || $distance == -1 ){
-                echo "<script>alert('Vous êtes trop loin veuillez renseigner une autre adresse ');</script>";
+                echo "<script>alert('Vous êtes trop loin veuillez renseigner une autre adresse $distance minutes');</script>";
             }
             else{
-                echo "<script>alert('Enregistré');</script>";
+                echo "<script>alert('Enregistré $distance minutes');</script>";
             }
         }
     }
     ?>
 
     <section>
-        <div class="recap-commande">
-            <h2>Récapitulatif de la commande</h2>
-            <!-- Cette div sera remplie dynamiquement -->
-        </div>
+    <div class="recap-commande">
+    <h2 >Récapitulatif de la commande</h2>
+    <?php
+    include("../model/panier.php");
+     recapitulatifPanier($panier, $pdo, $prixTotal); ?>
+</div>
         <button id="annuler">Annuler</button>
     </section>
     <section>
