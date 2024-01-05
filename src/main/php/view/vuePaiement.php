@@ -60,13 +60,13 @@
 
     <section>
         <div class="recap-commande">
+            <h2>Récapitulatif de la commande</h2>
             <?php
             require_once("../controller/controllerPizza.php");
 
             // Assurez-vous que $_SESSION['panier'] et $_SESSION['tabQuantite'] existent et ne sont pas vides
             if (!empty($_SESSION['panier']) && !empty($_SESSION['tabQuantite'])) {
                 echo "<div class='recap-commande'>";
-                echo "<h2>Récapitulatif de la commande</h2>";
 
                 // Parcourir le panier et afficher les détails de chaque pizza
                 foreach ($_SESSION['panier'] as $idPizza) {
@@ -83,6 +83,33 @@
                             echo "<p>Quantité : $quantite</p>";
                             echo "<p>Prix unitaire : $prix €</p>";
                             echo "<hr>"; // Ajouter une ligne pour séparer les pizzas
+                        }
+                    }
+                }
+
+                echo "</div>";
+            }
+            require_once("../controller/controllerProduit.php");
+
+            // Vérifiez si $_SESSION['panierProduit'] et $_SESSION['tabQuantiteProduit'] existent et ne sont pas vides
+            if (!empty($_SESSION['panierProduit']) && !empty($_SESSION['tabQuantiteProduit'])) {
+                echo "<div class='recap-commande-produits'>";
+
+                // Parcourez le panier des produits et affichez les détails de chaque produit
+                foreach ($_SESSION['panierProduit'] as $idProduit) {
+                    // Récupérer les détails du produit
+                    $produitDetails = controllerProduit::getProduitPanier($idProduit);
+                    if ($produitDetails->rowCount() > 0) {
+                        while ($row = $produitDetails->fetch(PDO::FETCH_ASSOC)) {
+                            $nomProduit = htmlspecialchars($row['nomProduit']);
+                            $quantiteProduit = $_SESSION['tabQuantiteProduit'][$idProduit];
+                            $prixProduit = controllerProduit::getPrixProduit($idProduit);
+
+                            // Afficher les détails du produit dans le récapitulatif de commande
+                            echo "<p>Nom du produit : $nomProduit</p>";
+                            echo "<p>Quantité : $quantiteProduit</p>";
+                            echo "<p>Prix unitaire : $prixProduit €</p>";
+                            echo "<hr>"; // Ajouter une ligne pour séparer les produits
                         }
                     }
                 }
