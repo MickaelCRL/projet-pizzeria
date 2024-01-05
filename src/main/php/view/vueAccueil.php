@@ -22,15 +22,19 @@
                 <img src='../static/$lien_image' alt='Pizza du moment' id='pizza-image'>
                 <div id='pizza-details'>
                     <p id='pizza-title'>Pizza du moment : $nomPizza</p>
-                    <button id='order-button'>
-                        <a href='vuePizzaClient.php'>
-                            Commander
-                            <img src='../static/img/shop_icon.png' alt='Shop Icon' id='icon'>
-                    </button>
-                </div>
-                </div>"
-                
-            ?>
+                    <button id='order-button'>";
+        if (isset($_SESSION["estGestionnaire"]) && $_SESSION["estGestionnaire"]) {
+            echo "<a href='vuePizzaGestionnaire.php'>";
+        } else {
+            echo "<a href='vuePizzaClient.php'>";
+        }
+        echo "Commander
+            <img src='../static/img/shop_icon.png' alt='Shop Icon' id='icon'>
+            </button>
+            </div>
+            </div>";
+
+        ?>
 
         <div id="additional-text">
             Toutes vos pizzas sont personnalisables ! <br>

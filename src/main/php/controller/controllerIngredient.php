@@ -23,6 +23,10 @@ class controllerIngredient
     {
         return modelIngredient::updateSeuilAlerteIngredient($idIngredient, $seuilAlerte);
     }
+
+    public static function nouvelIngredientPizza($idIngredient,$idPizza){
+        return modelIngredient::nouvelIngredientPizza($idIngredient,$idPizza);
+    }
 }
 
 ?>

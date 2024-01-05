@@ -208,6 +208,31 @@ form {
 
 label {
   display: block;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="file"],
+input[type="checkbox"] {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+input[type="checkbox"] {
+  width: auto; /* Allow checkbox to be its natural size */
+  margin-bottom: 0; /* Remove bottom margin to keep on the same line */
+}
+
+#quantite {
+  width: 50px; /* Adjust width for quantity input */
+}
+
+
+label {
+  display: block;
   margin-bottom: 8px;
 }
 

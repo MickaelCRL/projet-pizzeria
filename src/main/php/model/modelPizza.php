@@ -10,6 +10,16 @@ class modelPizza
         return $resultat;
     }
 
+    public static function getAllergenePizza($idPizza)
+    {
+        $requete = "SELECT * FROM Allergene NATURAL JOIN Renferme WHERE idPizza = :idPizza";
+        connexion::connect();
+        $statement = connexion::pdo()->prepare($requete);
+        $statement->bindParam(':idPizza', $idPizza);
+        $statement->execute();
+        return $statement; 
+    }
+
     public static function calculPrix($id)
     {
         $requete = "SELECT calculerPrixPizza($id) AS prix";
@@ -64,6 +74,78 @@ class modelPizza
         $requete = "SELECT * FROM VuePizzaProposee WHERE pizzaDuMoment = true";
         connexion::connect();
         $resultat = connexion::pdo()->query($requete);
+        return $resultat;
+    }
+
+    public static function nouvellePizza($nomPizza, $lienImage)
+    {
+        $requete = "INSERT INTO Pizza (nomPizza, pizzaDuMoment, quantitePizzaAPrepare,etatPizza, lienImage, idPizzaiolo) VALUES (:nomPizza, false, 0, true, :lienImage, null)";
+        connexion::connect();
+        $resultat = connexion::pdo()->prepare($requete);
+        $resultat->bindParam(':nomPizza', $nomPizza);
+        $resultat->bindParam(':lienImage', $lienImage);
+        $resultat->execute();
+        $requete = "SELECT MAX(idPizza) FROM Pizza";
+        $resultat = connexion::pdo()->prepare($requete);
+        $resultat->execute();
+        $row = $resultat->fetch(PDO::FETCH_ASSOC);
+        $idPizza = htmlspecialchars($row['MAX(idPizza)']);
+        $requete = "INSERT INTO Propose (idPizza, idPizzeria) VALUES ($idPizza, 1)";
+        $resultat = connexion::pdo()->prepare($requete);
+        $resultat->execute();
+        return $idPizza;
+    }
+
+    public static function updateRecettePizza($idPizza)
+    {
+        $requete = "CALL updateRecette($idPizza)";
+        connexion::connect();
+        $resultat = connexion::pdo()->prepare($requete);
+        $resultat->execute();
+        return $resultat;
+    }
+
+    public static function nouvelAllergenePizza($idPizza, $nomAllergene)
+    {
+        $requete = "INSERT INTO Allergene (nomAllergene, descriptionAllergene) VALUES (:nomAllergene, null)";
+        connexion::connect();
+        $resultat = connexion::pdo()->prepare($requete);
+        $resultat->bindParam(':nomAllergene', $nomAllergene, PDO::PARAM_STR);
+        $resultat->execute();
+        $requete = "SELECT MAX(idAllergene) FROM Allergene";
+        $resultat = connexion::pdo()->prepare($requete);
+        $resultat->execute();
+        $row = $resultat->fetch(PDO::FETCH_ASSOC);
+        $idAllergene = htmlspecialchars($row['MAX(idAllergene)']);
+        $requete = "INSERT INTO Renferme (idPizza, idAllergene) VALUES ($idPizza, $idAllergene)";
+        $resultat = connexion::pdo()->prepare($requete);
+        $resultat->execute();
+        return $resultat;
+    }
+
+    public static function supprimerPizza($idPizza)
+    {
+        $requete = "DELETE FROM Contient WHERE idPizza = :idPizza";
+        connexion::connect();
+        $resultat = connexion::pdo()->prepare($requete);
+        $resultat->bindParam(':idPizza', $idPizza);
+        $resultat->execute();
+        $requete = "DELETE FROM Renferme WHERE idPizza = :idPizza";
+        $resultat = connexion::pdo()->prepare($requete);
+        $resultat->bindParam(':idPizza', $idPizza);
+        $resultat->execute();
+        $requete = "DELETE FROM Utilise WHERE idPizza = :idPizza";
+        $resultat = connexion::pdo()->prepare($requete);
+        $resultat->bindParam(':idPizza', $idPizza);
+        $resultat->execute();
+        $requete = "DELETE FROM Propose WHERE idPizza = :idPizza";
+        $resultat = connexion::pdo()->prepare($requete);
+        $resultat->bindParam(':idPizza', $idPizza);
+        $resultat->execute();
+        $requete = "DELETE FROM Pizza WHERE idPizza = :idPizza";
+        $resultat = connexion::pdo()->prepare($requete);
+        $resultat->bindParam(':idPizza', $idPizza);
+        $resultat->execute();      
         return $resultat;
     }
 
