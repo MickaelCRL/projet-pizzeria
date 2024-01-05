@@ -9,10 +9,9 @@
 <body>
     <?php
     include("../view/navigation.php");
-    include("../controller/controllerClient.php");
-
+    
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Retrieve form data
+        // Obtenir les données du formulaire
         $nom = $_POST["nom"];
         $prenom = $_POST["prenom"];
         $email = $_POST["email"];
@@ -23,22 +22,39 @@
         if ($password != $confirm_password) {
             echo "<p class='erreur'> Votre mot de passe et sa confirmation ne correspondent pas. Essayez à nouveau !</p>";
         } else {
-            $resultat = controllerClient::newCompteClient($nom, $prenom,$email, $telephone, $nombreAleatoire, $Id, $password);
-            if(!$resultat){
-                echo "<p class='erreur'>Un compte avec cette adresse email existe déjà. Veuillez utiliser une autre adresse email.</p>";
-                echo "<p class='erreur'> <a href=../view/vueConnexion.php id='lien_erreur'> Ou bien, connectez vous. </a>  </p>";
+            if($code_acces == "1234"){
+                include("../controller/controllerGestionnaire.php");
+                $resultat = controllerGestionnaire::newCompteGestionnaire($nom, $prenom, $email, $password);
+                if(!$resultat){
+                    echo "<p class='erreur'>Un compte avec cette adresse email existe déjà. Veuillez utiliser une autre adresse email.</p>";
+                    echo "<p class='erreur'> <a href=../view/vueConnexion.php id='lien_erreur'> Ou bien, connectez vous. </a>  </p>";
+                }
+                else{
+                    session_start();
+                    $_SESSION['nom'] = $nom;
+                    $_SESSION['prenom'] = $prenom;
+                    $_SESSION["estGestionnaire"] = true;         
+                    header('Location: ../view/vueEspaceCompte.php');
+                }
             }
             else{
-                session_start();
-                $_SESSION['nom'] = $nom;
-                $_SESSION['prenom'] = $prenom;
-                $_SESSION['idCompteClient'] = $Id;
-                $_SESSION["panier"] = array();
-                $_SESSION["prixTotal"] = 0; 
-            
-                header('Location: ../view/vueEspaceCompte.php');
+                include("../controller/controllerClient.php");
+                $resultat = controllerClient::newCompteClient($nom, $prenom,$email, $telephone, $nombreAleatoire, $Id, $password);
+                if(!$resultat){
+                    echo "<p class='erreur'>Un compte avec cette adresse email existe déjà. Veuillez utiliser une autre adresse email.</p>";
+                    echo "<p class='erreur'> <a href=../view/vueConnexion.php id='lien_erreur'> Ou bien, connectez vous. </a>  </p>";
+                }
+                else{
+                    session_start();
+                    $_SESSION['nom'] = $nom;
+                    $_SESSION['prenom'] = $prenom;
+                    $_SESSION['idCompteClient'] = $Id;
+                    $_SESSION["panier"] = array();
+                    $_SESSION["prixTotal"] = 0; 
+                    $_SESSION["estGestionnaire"] = false;         
+                    header('Location: ../view/vueEspaceCompte.php');
+                }              
             }
-
         }
     }
 

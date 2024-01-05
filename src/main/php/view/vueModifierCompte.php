@@ -32,6 +32,7 @@
     </form>
     <?php
     include("../controller/controllerClient.php");
+    include("../controller/controllerGestionnaire.php");
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Retrieve form data
         $nom = $_POST["nom"];
@@ -42,17 +43,22 @@
         $confirm_password = $_POST["confirm_password"];
         if ($password != $confirm_password) {
             echo "<p class='erreur'> Votre mot de passe et sa confirmation ne correspondent pas. Essayez à nouveau !</p>";
-        }
-        else {            
-            $idCompteClient = $_SESSION["idCompteClient"];
+        } else {
+            if (isset($_SESSION["idCompteClient"])) {$idCompteClient = $_SESSION["idCompteClient"];}
+            else{$idGestionnaire = $_SESSION["idGestionnaire"];}
             $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-            $resultat = controllerClient::updateCompteClient($idCompteClient, $nom, $prenom, $email, $telephone, $passwordHash);
-            if($resultat){
+            if(isset($_SESSION["idCompteClient"])){
+                $resultat = controllerClient::updateCompteClient($idCompteClient, $nom, $prenom, $email, $telephone, $passwordHash);
+            }
+            else{
+                $resultat = controllerGestionnaire::updateGestionnaire($idGestionnaire, $nom, $prenom, $email, $passwordHash);
+            }
+            if ($resultat) {
                 $_SESSION["nom"] = $nom;
                 $_SESSION["prenom"] = $prenom;
                 header('Location: vueEspaceCompte.php');
-                
-            }    
+
+            }
             echo '<script>';
             if ($resultat) {
                 echo 'alert("Modification réussie");'; // Affiche une alerte pour indiquer le succès
@@ -60,7 +66,7 @@
                 echo 'alert("Échec de la mise à jour");'; // Affiche une alerte pour indiquer l'échec
             }
             echo '</script>';
-            
+
 
         }
     }

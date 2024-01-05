@@ -14,6 +14,9 @@ class controllerClient
     public static function connexionCompteClient($email, $password)
     {
         $resultat = modelClient::getPasswordHash($email);
+        if(!$resultat){
+            return $resultat;
+        }
         $passwordRow = $resultat->fetch(PDO::FETCH_ASSOC);
         if ($passwordRow) {
             $passwordHash = $passwordRow['motDePasse'];

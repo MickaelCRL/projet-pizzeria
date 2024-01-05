@@ -28,6 +28,21 @@ class modelPizza
         return $resultat;
     }
 
+    public static function ajoutPizzaDuMoment($idPizza){
+        connexion::connect();
+        $requete = "UPDATE Pizza SET pizzaDuMoment = false WHERE pizzaDuMoment = true";
+        connexion::pdo()->exec($requete);
+        $requete = "UPDATE Pizza SET pizzaDuMoment = true WHERE idPizza = $idPizza";
+        connexion::pdo()->exec($requete);
+    }
+
+    public static function getPizzaDuMoment(){
+        $requete = "SELECT * FROM VuePizzaProposee WHERE pizzaDuMoment = true";
+        connexion::connect();
+        $resultat = connexion::pdo()->query($requete);
+        return $resultat;
+    }
+
 }
 
 ?>
