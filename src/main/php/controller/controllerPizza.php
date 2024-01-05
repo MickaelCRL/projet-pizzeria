@@ -19,16 +19,30 @@ class controllerPizza
 
     }
 
-    public static function ajoutPizzaDuMoment($idPizza){
+    public static function getPizzaIngredient($idPizza)
+    {
+        $ingredients = modelPizza::getPizzaIngredient($idPizza);
+
+        $capitalIngredients = array_map(function ($ingredient) {
+            return ucwords($ingredient);
+        }, $ingredients);
+
+        return $capitalIngredients;
+    }
+
+    public static function ajoutPizzaDuMoment($idPizza)
+    {
         modelPizza::ajoutPizzaDuMoment($idPizza);
     }
 
-    public static function getPizzaDuMoment(){
+    public static function getPizzaDuMoment()
+    {
         return modelPizza::getPizzaDuMoment();
     }
-    
-    public static function calculDistancePizzeria($pizzeriaAddress, $destination){
-        
+
+    public static function calculDistancePizzeria($pizzeriaAddress, $destination)
+    {
+
     }
 }
 

@@ -1,263 +1,272 @@
 body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
 }
 
 header {
-    background-color: black;
-    color: yellow;
-    padding: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  background-color: black;
+  color: yellow;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 #logo {
-    width: 50px;
-    height: 50px;
-    margin-right: 15px;
+  width: 50px;
+  height: 50px;
+  margin-right: 15px;
 }
 
 #title-container {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 h1 {
-    margin: 0;
-    color: orange;
+  margin: 0;
+  color: orange;
 }
 
 nav {
-    background-color: black;
-    text-align: center;
-    padding: 10px 0;
-    display: flex;
-    justify-content: center;
+  background-color: black;
+  text-align: center;
+  padding: 10px 0;
+  display: flex;
+  justify-content: center;
 }
 
 nav a {
-    text-decoration: none;
-    padding: 10px 20px;
-    margin: 0 10px;
-    color: yellow;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
+  text-decoration: none;
+  padding: 10px 20px;
+  margin: 0 10px;
+  color: yellow;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
 }
 
 nav a:hover {
-    background-color: yellow;
-    color: black;
+  background-color: yellow;
+  color: black;
 }
 
-
-
 #presentation {
-    display: flex;
-    justify-content: space-around;
-    /*  align-items: center;  */
-    padding: 20px;
+  display: flex;
+  justify-content: space-around;
+  /*  align-items: center;  */
+  padding: 20px;
 }
 
 #pizza-image {
-    width: 300px;
-    height: auto;
+  width: 300px;
+  height: auto;
 }
 
 #pizza-details {
-    max-width: 400px;
-    text-align: left;
+  max-width: 400px;
+  text-align: left;
 }
 
 #pizza-title,
 #additional-text {
-    font-size: 24px;
-    color: orange;
-    margin-bottom: 10px;
-    text-align: center;
+  font-size: 24px;
+  color: orange;
+  margin-bottom: 10px;
+  text-align: center;
 }
 
- #order-button, #compte-button, #co-button, #create_account_button, #connexion_button, #logout_button, #modif_button, #delete_button {
-    margin-left: auto;
-    margin-right: auto;
-    padding: 10px 20px;
-    margin-top: 25px;
-    height: 70px;
-    width: 225px;
-    font-size: 24px;
-    background-color: yellow;
-    color: black;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    transition: background-color 0.3s ease;
-
+#order-button,
+#compte-button,
+#co-button,
+#create_account_button,
+#connexion_button,
+#logout_button,
+#modif_button,
+#delete_button {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px 20px;
+  margin-top: 25px;
+  height: 70px;
+  width: 225px;
+  font-size: 24px;
+  background-color: yellow;
+  color: black;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.3s ease;
 }
 
-#order-button:hover, #compte-button:hover, #co-button:hover, #create_account_button:hover, #connexion_button:hover, #logout_button:hover, #modif_button:hover, #delete_button:hover {
-    background-color: black;
-    color: yellow;
-
+#order-button:hover,
+#compte-button:hover,
+#co-button:hover,
+#create_account_button:hover,
+#connexion_button:hover,
+#logout_button:hover,
+#modif_button:hover,
+#delete_button:hover {
+  background-color: black;
+  color: yellow;
 }
 
-#icon, #user-icon {
-    width: 35px;
-    height: 35px;
-    margin: 0 auto;
-    margin-left: 7px;
+#icon,
+#user-icon {
+  width: 35px;
+  height: 35px;
+  margin: 0 auto;
+  margin-left: 7px;
 }
 
 footer {
-    background-color: black;
-    color: yellow;
-    text-align: center;
-    padding: 10px;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+  background-color: black;
+  color: yellow;
+  text-align: center;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }
 
 #additional-text {
-    text-align: center;
-    margin-top: 20px;
-    color: gray;
+  text-align: center;
+  margin-top: 20px;
+  color: gray;
 }
 
 #discount-text {
-    font-size: 24px;
-    color: red;
-    margin-top: 20px;
-    text-align: center;
-    transition: color 0.3s ease;
+  font-size: 24px;
+  color: red;
+  margin-top: 20px;
+  text-align: center;
+  transition: color 0.3s ease;
 }
 
 #discount-text:hover {
-    color: green;
+  color: green;
 }
 
 #button-container {
-    display: flex;
-    justify-content: center; /* Changed from space-between to center */
-    margin-top: 10px;
-    margin-bottom: 30px;
+  display: flex;
+  justify-content: center; /* Changed from space-between to center */
+  margin-top: 10px;
+  margin-bottom: 30px;
 }
 
-a{
-    text-decoration: none;
-    color: black;
-    display: flex;
-    justify-content: center;
+a {
+  text-decoration: none;
+  color: black;
+  display: flex;
+  justify-content: center;
 }
 
-#lien_visible{
-    text-decoration: underline yellow;
+#lien_visible {
+  text-decoration: underline yellow;
 }
 
-#lien_visible:hover{
-    font-weight: bold;
+#lien_visible:hover {
+  font-weight: bold;
 }
 
 .erreur {
-    color: red !important;
-    font-weight: bold;
-    text-align: center;
-    justify-content: center;
+  color: red !important;
+  font-weight: bold;
+  text-align: center;
+  justify-content: center;
 }
 
-#lien_erreur{
-    text-decoration: underline orange;
-    color: red  !important;
+#lien_erreur {
+  text-decoration: underline orange;
+  color: red !important;
 }
 
-#lien_erreur:hover{
-    font-weight: bold;
+#lien_erreur:hover {
+  font-weight: bold;
 }
 
-#texte_basique{
-    text-align: center;
-    justify-content: center;
-    color : orange;
+#texte_basique {
+  text-align: center;
+  justify-content: center;
+  color: orange;
 }
-
 
 form {
-    width: 400px; 
-    margin: 0 auto;
+  width: 400px;
+  margin: 0 auto;
 }
 
-#form_field{
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    background-color: #f9f9f9;
+#form_field {
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: #f9f9f9;
 }
 
 label {
-    display: block;
-    margin-bottom: 8px;
+  display: block;
+  margin-bottom: 8px;
 }
 
 input {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 12px;
-    box-sizing: border-box;
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 12px;
+  box-sizing: border-box;
 }
 
 .mainPizza {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 20px;
 }
 
 .pizza-container {
-    text-align: center;
-    margin-bottom: 20px;
-    padding: 20px; 
-
+  text-align: center;
+  margin-bottom: 20px;
+  padding: 20px;
 }
 
 .pizza-image {
-    width: 300px;
-    height: auto;
+  width: 300px;
+  height: auto;
 }
 
 .pizza-title {
-    font-size: 24px;
-    color: orange;
-    margin-bottom: 10px;
-    text-align: center;
+  font-size: 24px;
+  color: orange;
+  margin-bottom: 10px;
+  text-align: center;
 }
 
 .pizza-allergenes {
-    font-size: 16px;
-    color: gray;
-    text-align: center;
+  font-size: 16px;
+  color: gray;
+  text-align: center;
 }
 
 .pizza-price {
-    font-size: 18px; /* Taille de la police */
-    color: #333; /* Couleur du texte */
-    margin : 0 auto;
-    text-align: center !important;
-    justify-content: center;
+  font-size: 18px; /* Taille de la police */
+  color: #333; /* Couleur du texte */
+  margin: 0 auto;
+  text-align: center !important;
+  justify-content: center;
 }
 
 .confirmation {
-    text-align: center;
-    margin-top: 20px;
-    color: green;
+  text-align: center;
+  margin-top: 20px;
+  color: green;
 }
 
-#prix{
-    text-align: center;
-    margin-top: 20px;
-    color: orange;
-    font-weight: bold;
-    font-size: 24px;
+#prix {
+  text-align: center;
+  margin-top: 20px;
+  color: orange;
+  font-weight: bold;
+  font-size: 24px;
 }

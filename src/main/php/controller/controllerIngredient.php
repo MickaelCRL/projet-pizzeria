@@ -8,6 +8,12 @@ class controllerIngredient
         return modelIngredient::getIngredients();
     }
 
+    public static function getAutreIngredient($tabIngredient)
+    {
+        return modelIngredient::getAutreIngredient($tabIngredient);
+    }
+
+
     public static function updateQuantiteIngredient($idIngredient, $quantiteIngredient)
     {
         return modelIngredient::updateQuantiteIngredient($idIngredient, $quantiteIngredient);

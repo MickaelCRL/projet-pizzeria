@@ -10,6 +10,25 @@ class modelIngredient
         return $resultat;
     }
 
+    public static function getAutreIngredient($tabIngredient)
+    {
+        connexion::connect();
+        $placeholders = rtrim(str_repeat('?,', count($tabIngredient)), ',');
+        $sql = "SELECT nomIngredient FROM Ingredient WHERE nomIngredient NOT IN ($placeholders)";
+
+        $stmt = connexion::pdo()->prepare($sql);
+        $stmt->execute($tabIngredient);
+
+        $autreIngredients = [];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $autreIngredients[] = $row['nomIngredient'];
+        }
+
+        return $autreIngredients;
+
+    }
+
+
     public static function updateQuantiteIngredient($idIngredient, $quantiteIngredient)
     {
         $requete = "UPDATE Ingredient SET quantiteIngredient = :quantiteIngredient WHERE idIngredient = :idIngredient";

@@ -30,6 +30,26 @@ class modelPizza
         return $statement;
     }
 
+    public static function getPizzaIngredient($idPizza)
+    {
+        connexion::connect();
+        $stmt = connexion::pdo()->prepare("SELECT recette FROM Pizza WHERE idPizza = :idPizza");
+        $stmt->bindParam(':idPizza', $idPizza);
+        $stmt->execute();
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($result) {
+            $recette = $result['recette'];
+
+            // Utilisation de la fonction explode pour séparer les ingrédients
+            $ingredients = explode(", ", $recette);
+            return $ingredients;
+        } else {
+            return []; // Retourne un tableau vide si la pizza n'a pas de recette
+        }
+
+    }
+
     public static function ajoutPizzaDuMoment($idPizza)
     {
         connexion::connect();

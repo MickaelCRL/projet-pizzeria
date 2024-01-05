@@ -1,0 +1,29 @@
+.autres-ingredients ul li,
+.pizza-ingredients ul li {
+  margin-bottom: 5px; /* Ajustez la valeur selon l'espace souhaité entre les lignes */
+}
+
+/* Style pour les boutons + et - */
+.ajouter,
+.retirer {
+  margin-left: 5px; /* Espace à gauche des boutons */
+}
+
+.ajouter-panier-button {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px 20px;
+  margin-top: 25px;
+  height: 70px;
+  width: 225px;
+  font-size: 24px;
+  background-color: yellow;
+  color: black;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
