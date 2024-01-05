@@ -34,6 +34,7 @@
                 $_SESSION['prenom'] = $prenom;
                 $_SESSION['idCompteClient'] = $Id;
                 $_SESSION["panier"] = array();
+                $_SESSION["tabQuantite"] = array();
                 $_SESSION["prixTotal"] = 0; 
             
                 header('Location: ../view/vueEspaceCompte.php');

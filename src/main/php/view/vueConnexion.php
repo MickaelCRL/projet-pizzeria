@@ -31,8 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"];
     $password = $_POST["mot_de_passe"];
 
-
-    $resultat = controllerClient::connexionCompteClient($email, $password);   
+    $resultat = controllerClient::connexionCompteClient($email, $password);
     if ($resultat) {
         if ($resultat->rowCount() != 0) {
             // Le mot de passe est correct
@@ -42,6 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION["nom"] = $utilisateur["nomClient"];
             $_SESSION["prenom"] = $utilisateur["prenomClient"];
             $_SESSION["panier"] = array();
+            $_SESSION["tabQuantite"] = array();
             $_SESSION["prixTotal"] = 0;
             header('Location: ../view/vueEspaceCompte.php');
         } else {

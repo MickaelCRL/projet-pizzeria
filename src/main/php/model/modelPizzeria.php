@@ -1,12 +1,12 @@
 <?php
 include("../config/connexion.php");
 class ModelPizzeria
-{
-    private $idPizzeria = 1;
+{     
     public static function getAdresse()
     {      
         connexion::connect();
         $pdo = connexion::pdo();
+        $idPizzeria = 1;
         $query = "SELECT a.rue, v.nomVille, v.codePostal 
         FROM Pizzeria AS p 
         JOIN Adresse AS a ON p.idAdresse = a.idAdresse 
