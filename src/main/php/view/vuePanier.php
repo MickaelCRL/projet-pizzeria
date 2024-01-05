@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Pizzas</title>
+    <title>Panier</title>
     <link rel="stylesheet" type="text/css" href="../static/css/style.css">
 </head>
 
@@ -35,7 +35,7 @@
                     echo "<p class='pizza-prix'>Prix : $prix €</p>";
                     echo "<form action='../actions/suppressionPizzaPanier.php' method='post'>";
                     echo "<input type='hidden' name='idPizza' value='$id'>";
-                    echo "<button type='submit' id='delete-button'>Supprimer</button>";
+                    echo "<button type='submit' class='delete-pizza-button'>Supprimer</button>";
                     echo "</form>";
                     echo "</div>";
                 }
@@ -44,12 +44,41 @@
             }
 
         }
+
+        include("../controller/controllerProduit.php");
+        $panierProduit = $_SESSION['panierProduit'];
+        $tabQuantiteProduit = $_SESSION['tabQuantiteProduit'];
+        foreach ($_SESSION['panierProduit'] as $idProduit) {
+
+            $produitPanier = controllerProduit::getProduitPanier($idProduit);
+            if ($produitPanier->rowCount() > 0) {
+                // Parcourir les résultats et afficher les pizzas 
+                while ($row = $produitPanier->fetch(PDO::FETCH_ASSOC)) {
+                    $idProduit = htmlspecialchars($row['idProduit']);
+                    $nomProduit = htmlspecialchars($row['nomProduit']);
+                    $quantiteProduit = $tabQuantiteProduit[$idProduit];
+                    $prixProduit = controllerProduit::getPrixProduit($idProduit);
+                    echo "<div class='produit-container'>";
+                    echo "<p id='produit-title'>$nomProduit</p>";
+                    echo "<p class='produit-prix'>Quantite : $quantiteProduit </p>";
+                    echo "<p class='produit-prix'>Prix : $prixProduit €</p>";
+                    echo "<form action='../actions/suppressionProduitPanier.php' method='post'>";
+                    echo "<input type='hidden' name='idProduit' value='$idProduit'>";
+                    echo "<button type='submit' class='delete-produit-button'>Supprimer</button>";
+                    echo "</form>";
+                }
+
+
+            }
+
+        }
+
         // Afficher le prix total du panier
         $prixTotal = $_SESSION['prixTotal'];
         echo "<br>";
         echo "<p id='prix'> Prix total de votre commande : $prixTotal € </p>";
 
-        if (!empty($_SESSION['panier'])) {
+        if (!empty($_SESSION['panier']) || !empty($_SESSION['panierProduit'])) {
             echo "<form action='../view/vuePaiement.php' method='get'>";
             echo "<button type='submit'>Commander</button>";
             echo "</form>";

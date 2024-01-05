@@ -43,6 +43,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION["prenom"] = $utilisateur["prenomClient"];
             $_SESSION["panier"] = array();
             $_SESSION["tabQuantite"] = array();
+            $_SESSION["panierProduit"] = array();
+            $_SESSION["tabQuantiteProduit"] = array();
             $_SESSION["prixTotal"] = 0;
             $_SESSION["estGestionnaire"] = false;
             header('Location: ../view/vueEspaceCompte.php');
