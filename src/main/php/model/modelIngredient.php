@@ -1,9 +1,9 @@
 <?php
-include("../config/connexion.php");
+require_once("../config/connexion.php");
 class modelIngredient
 {
     public static function getIngredients()
-    {        
+    {
         $requete = "SELECT * FROM Ingredient";
         connexion::connect();
         $resultat = connexion::pdo()->query($requete);

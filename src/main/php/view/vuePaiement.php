@@ -41,18 +41,17 @@
             </form>
         </div>
     </section>
-    <?php 
+    <?php
     include("../controller/controllerPizzeria.php");
     if (!empty($_POST['adresse']) || !empty($_POST['ville']) || !empty($_POST['code-postal'])) {
         if (empty($_POST['adresse']) || empty($_POST['ville']) || empty($_POST['code-postal'])) {
             echo "<script>alert('Veuillez renseigner une adresse complète pour la livraison. Rien pas de livraison.');</script>";
-        } else {            
+        } else {
             $destination = $_POST['adresse'] . ', ' . $_POST['ville'] . ', ' . $_POST['code-postal'] . ", France";
             $distance = controllerPizzeria::calculDistancePizzeria($destination);
-            if($distance > 30 || $distance == -1 ){
+            if ($distance > 30 || $distance == -1) {
                 echo "<script>alert('Vous êtes trop loin veuillez renseigner une autre adresse $distance minutes');</script>";
-            }
-            else{
+            } else {
                 echo "<script>alert('Enregistré $distance minutes');</script>";
             }
         }
@@ -60,13 +59,53 @@
     ?>
 
     <section>
-    <div class="recap-commande">
-    <h2 >Récapitulatif de la commande</h2>
-    <?php
-    include("../model/panier.php");
-     recapitulatifPanier($panier, $pdo, $prixTotal); ?>
-</div>
-        <button id="annuler">Annuler</button>
+        <div class="recap-commande">
+            <?php
+            require_once("../controller/controllerPizza.php");
+
+            // Assurez-vous que $_SESSION['panier'] et $_SESSION['tabQuantite'] existent et ne sont pas vides
+            if (!empty($_SESSION['panier']) && !empty($_SESSION['tabQuantite'])) {
+                echo "<div class='recap-commande'>";
+                echo "<h2>Récapitulatif de la commande</h2>";
+
+                // Parcourir le panier et afficher les détails de chaque pizza
+                foreach ($_SESSION['panier'] as $idPizza) {
+                    // Récupérer les détails de la pizza
+                    $pizzaDetails = controllerPizza::getPizzaPanier($idPizza);
+                    if ($pizzaDetails->rowCount() > 0) {
+                        while ($row = $pizzaDetails->fetch(PDO::FETCH_ASSOC)) {
+                            $nom = htmlspecialchars($row['nomPizza']);
+                            $quantite = $_SESSION['tabQuantite'][$idPizza];
+                            $prix = controllerPizza::getPrixPizza($idPizza);
+
+                            // Afficher les détails de la pizza dans le récapitulatif de la commande
+                            echo "<p>Nom de la pizza : $nom</p>";
+                            echo "<p>Quantité : $quantite</p>";
+                            echo "<p>Prix unitaire : $prix €</p>";
+                            echo "<hr>"; // Ajouter une ligne pour séparer les pizzas
+                        }
+                    }
+                }
+
+                echo "</div>";
+            }
+            ?>
+        </div>
+        <?php
+
+        if (isset($_POST['annuler'])) {
+            // Vider le panier en réinitialisant les variables de session
+            $_SESSION['panier'] = array();
+            $_SESSION['tabQuantite'] = array();
+            $_SESSION['prixTotal'] = 0;
+
+            header('Location: ../view/vueAccueil.php');
+            exit();
+        }
+        ?>
+        <form method="post">
+            <button type="submit" name="annuler">Annuler</button>
+        </form>
     </section>
     <section>
         <h2>Choix du paiement</h2>

@@ -15,9 +15,9 @@
         $panier = $_SESSION['panier'];
         $tabQuantite = $_SESSION['tabQuantite'];
 
-        for ($i = 0; $i < sizeof($panier); $i++) {
+        foreach ($_SESSION['panier'] as $idPizza) {
 
-            $pizzaPanier = controllerPizza::getPizzaPanier($panier[$i]);
+            $pizzaPanier = controllerPizza::getPizzaPanier($idPizza);
             if ($pizzaPanier->rowCount() > 0) {
                 // Parcourir les résultats et afficher les pizzas 
                 while ($row = $pizzaPanier->fetch(PDO::FETCH_ASSOC)) {
@@ -41,8 +41,6 @@
                 }
 
 
-            } else {
-                echo "<p class='erreur'>Votre panier est vide !</p>";
             }
 
         }
@@ -50,6 +48,12 @@
         $prixTotal = $_SESSION['prixTotal'];
         echo "<br>";
         echo "<p id='prix'> Prix total de votre commande : $prixTotal € </p>";
+
+        if (!empty($_SESSION['panier'])) {
+            echo "<form action='../view/vuePaiement.php' method='get'>";
+            echo "<button type='submit'>Commander</button>";
+            echo "</form>";
+        }
 
         ?>
     </main>

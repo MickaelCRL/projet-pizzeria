@@ -1,9 +1,9 @@
 <?php
-include("../config/connexion.php");
+require_once("../config/connexion.php");
 class modelPizza
 {
     public static function getPizzaProposee()
-    {        
+    {
         $requete = "SELECT * FROM VuePizzaProposee";
         connexion::connect();
         $resultat = connexion::pdo()->query($requete);
@@ -17,18 +17,21 @@ class modelPizza
         $resultat = connexion::pdo()->query($requete);
         $row = $resultat->fetch(PDO::FETCH_ASSOC);
         $prix = htmlspecialchars($row['prix']);
-        return $prix ;
+        return $prix;
     }
 
     public static function getPizzaPanier($idPizzaPanier)
-    {        
-        $requete = "SELECT * FROM VuePizzaProposee WHERE idPizza = $idPizzaPanier";
+    {
+        $requete = "SELECT * FROM VuePizzaProposee WHERE idPizza = :id";
         connexion::connect();
-        $resultat = connexion::pdo()->query($requete);
-        return $resultat;
+        $statement = connexion::pdo()->prepare($requete);
+        $statement->bindParam(':id', $idPizzaPanier);
+        $statement->execute();
+        return $statement;
     }
 
-    public static function ajoutPizzaDuMoment($idPizza){
+    public static function ajoutPizzaDuMoment($idPizza)
+    {
         connexion::connect();
         $requete = "UPDATE Pizza SET pizzaDuMoment = false WHERE pizzaDuMoment = true";
         connexion::pdo()->exec($requete);
@@ -36,7 +39,8 @@ class modelPizza
         connexion::pdo()->exec($requete);
     }
 
-    public static function getPizzaDuMoment(){
+    public static function getPizzaDuMoment()
+    {
         $requete = "SELECT * FROM VuePizzaProposee WHERE pizzaDuMoment = true";
         connexion::connect();
         $resultat = connexion::pdo()->query($requete);

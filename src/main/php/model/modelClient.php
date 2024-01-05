@@ -1,6 +1,6 @@
 <?php
 
-include("../config/connexion.php");
+require_once("../config/connexion.php");
 
 class modelClient
 {
@@ -16,12 +16,12 @@ class modelClient
 
         if ($existingAccountQuery->rowCount() > 0) {
             return false;
-        } else {            
-           
+        } else {
+
             $sql = "UPDATE CompteClient SET CompteClient.adresseMail='$email', CompteClient.motDePasse='$password' WHERE CompteClient.idCompteClient = $idCompteClient";
             $pdo->exec($sql);
             $sql = "UPDATE Client SET Client.nomClient='$nom', Client.prenomClient='$prenom', Client.telephone='$telephone' WHERE Client.idCompteClient = $idCompteClient";
-            $pdo->exec($sql);           
+            $pdo->exec($sql);
             return true;
         }
 
@@ -38,12 +38,12 @@ class modelClient
         WHERE CompteClient.adresseMail = '$email'";
 
         $resultat = $pdo->query($requete);
-        if($resultat->rowCount() == 0){
+        if ($resultat->rowCount() == 0) {
             return false;
         } else {
             return $resultat;
         }
-        
+
     }
 
     public static function connexion($email, $password)
@@ -82,7 +82,7 @@ class modelClient
     }
 
     public static function creerCompteClient($nom, $prenom, $email, $telephone, $nombreAleatoire, $Id, $password)
-    {        
+    {
         connexion::connect();
         $pdo = connexion::pdo();
         //Vérifier si le compte n'existe pas déjà

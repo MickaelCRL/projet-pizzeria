@@ -1,6 +1,6 @@
 <?php
 
-include_once("../config/connexion.php");
+require_once("../config/connexion.php");
 
 class modelGestionnaire
 {
@@ -16,9 +16,9 @@ class modelGestionnaire
 
         if ($existingAccountQuery->rowCount() > 0) {
             return false;
-        } else {               
+        } else {
             $sql = "UPDATE Gestionnaire SET Gestionnaire.nomGestionnaire='$nom', Gestionnaire.prenomGestionnaire='$prenom', Gestionnaire.adresseMail='$email', Gestionnaire.motDePasse='$password' WHERE Gestionnaire.idGestionnaire = $idGestionnaire";
-            $pdo->exec($sql);         
+            $pdo->exec($sql);
             return true;
         }
 
@@ -61,8 +61,8 @@ class modelGestionnaire
         return $resultat;
     }
 
-    public static function creerCompteGestionnaire($nom, $prenom, $email,$password)
-    {        
+    public static function creerCompteGestionnaire($nom, $prenom, $email, $password)
+    {
         connexion::connect();
         $pdo = connexion::pdo();
         //Vérifier si le compte n'existe pas déjà

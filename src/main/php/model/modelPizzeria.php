@@ -1,9 +1,9 @@
 <?php
-include("../config/connexion.php");
+require_once("../config/connexion.php");
 class ModelPizzeria
-{     
+{
     public static function getAdresse()
-    {      
+    {
         connexion::connect();
         $pdo = connexion::pdo();
         $idPizzeria = 1;
