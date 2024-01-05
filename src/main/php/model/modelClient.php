@@ -38,8 +38,12 @@ class modelClient
         WHERE CompteClient.adresseMail = '$email'";
 
         $resultat = $pdo->query($requete);
-        return $resultat;
-
+        if($resultat->rowCount() == 0){
+            return false;
+        } else {
+            return $resultat;
+        }
+        
     }
 
     public static function connexion($email, $password)
@@ -47,7 +51,7 @@ class modelClient
         connexion::connect();
         $pdo = connexion::pdo();
 
-        $requete = "SELECT CompteClient.idCompteClient, CompteClient.motDePasse, Client.nomClient, Client.prenomClient, CompteClient.motDePasse 
+        $requete = "SELECT CompteClient.idCompteClient, Client.nomClient, Client.prenomClient 
         FROM CompteClient
         JOIN Client ON CompteClient.idCompteClient = Client.idCompteClient
         WHERE CompteClient.adresseMail = '$email' AND CompteClient.motDePasse = '$password'";

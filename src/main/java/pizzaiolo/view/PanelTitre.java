@@ -1,7 +1,13 @@
 import javax.swing.*;
 import java.awt.*;
 
+/*
+ * Classe qui permet de créer le panel du titre de l'application.
+ */
 public class PanelTitre extends JPanel {
+    /**
+     * Constructeur de la classe PanelTitre.
+     */
     public PanelTitre() {
         super();
         setPreferredSize(new Dimension(500, 50));
@@ -14,6 +20,5 @@ public class PanelTitre extends JPanel {
         titre.setHorizontalAlignment(JLabel.CENTER);
         titre.setForeground(Color.YELLOW);
         this.add(titre);
-
     }
 }

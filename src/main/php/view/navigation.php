@@ -17,6 +17,10 @@
             if (isset($_SESSION["nom"])) {
                 echo "<a href='./vuePanier.php'>Votre panier</a>";
             }
+            if(isset($_SESSION["estGestionnaire"]) && $_SESSION["estGestionnaire"]){
+                echo "<a href='./vueStocks.php'>Stocks</a>";
+                echo "<a href='./vueStatistiques.php'>Statistiques</a>";
+            }
         ?>     
     </nav>
 </header>

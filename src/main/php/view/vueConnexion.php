@@ -26,11 +26,12 @@
 
 </html>
 <?php
-include("../controller/controllerClient.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"];
     $password = $_POST["mot_de_passe"];
 
+
+    include_once("../controller/controllerClient.php");
     $resultat = controllerClient::connexionCompteClient($email, $password);
     if ($resultat) {
         if ($resultat->rowCount() != 0) {
@@ -43,12 +44,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION["panier"] = array();
             $_SESSION["tabQuantite"] = array();
             $_SESSION["prixTotal"] = 0;
+            $_SESSION["estGestionnaire"] = false;
             header('Location: ../view/vueEspaceCompte.php');
         } else {
+            $nb = $resultat->rowCount();
+            echo $nb;
             echo "<p class='erreur'> Échec de la connexion. Vérifiez votre adresse mail ou votre mot de passe. </p>";
         }
     } else {
-        echo "<p class='erreur'> Échec de la connexion. Vérifiez votre adresse mail ou votre mot de passe. </p>";
+        include_once("../controller/controllerGestionnaire.php");
+        $resultat = controllerGestionnaire::connexionGestionnaire($email, $password);
+        if ($resultat) {
+            if ($resultat->rowCount() != 0) {
+                // Le mot de passe est correct
+                $utilisateur = $resultat->fetch(PDO::FETCH_ASSOC);
+                session_start();
+                $_SESSION["idGestionnaire"] = $utilisateur["idGestionnaire"];
+                $_SESSION["nom"] = $utilisateur["nomGestionnaire"];
+                $_SESSION["prenom"] = $utilisateur["prenomGestionnaire"];
+                $_SESSION["estGestionnaire"] = true;
+                header('Location: ../view/vueEspaceCompte.php');
+            } else {
+                echo "<p class='erreur'> Compte non trouvé. </p>";
+            }
+        } else {
+            echo "<p class='erreur'> Échec de la connexion. Vérifiez votre adresse mail ou votre mot de passe. </p>";
+        }
     }
 
 }

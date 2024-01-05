@@ -33,7 +33,7 @@
                 echo "<input type='hidden' name='idPizza' value='$id'>";
                 echo "<input type='hidden' name='prix' value='$prix'>";
                 echo "<button type='submit' id='order-button' >Ajouter au panier
-        <img src='../static/img/shop_icon.png' alt='Shop Icon' id='shop-icon'>
+        <img src='../static/img/shop_icon.png' alt='Shop Icon' id='icon'>
         </button>";
                 echo "</input>";
                 // Afficher un message de confirmation ou d'erreur en fonction du contenu du panier 
@@ -41,6 +41,13 @@
                     echo "<p class='confirmation'>Pizza ajoutée au panier.</p>";
                 }
                 echo "</form>";
+                if(isset($_SESSION["estGestionnaire"]) && $_SESSION["estGestionnaire"]){
+                    echo "<form action='../actions/ajoutPizzaDuMoment.php' method='post'>";
+                    echo "<input type='hidden' name='idPizza' value='$id'/>";
+                    echo "<button type='submit' id='order-button' >Pizza du moment
+                    <img src='../static/img/+.png' alt='Add Icon' id='icon'/> </button>";
+                    echo "</form>";
+                }
                 echo "</div>";
                 echo "</div>";
             }

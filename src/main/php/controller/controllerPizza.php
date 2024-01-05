@@ -18,6 +18,14 @@ class controllerPizza
         return modelPizza::getPizzaPanier($idPizzaPanier);
 
     }
+
+    public static function ajoutPizzaDuMoment($idPizza){
+        modelPizza::ajoutPizzaDuMoment($idPizza);
+    }
+
+    public static function getPizzaDuMoment(){
+        return modelPizza::getPizzaDuMoment();
+    }
     
     public static function calculDistancePizzeria($pizzeriaAddress, $destination){
         

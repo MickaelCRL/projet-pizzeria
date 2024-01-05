@@ -12,17 +12,26 @@
     <?php include("./navigation.php"); ?>
 
     <main>
-        <div id="presentation">
-            <img src="../static/img/m.jpg" alt="Pizza du moment" id="pizza-image">
-            <div id="pizza-details">
-                <p id="pizza-title">Pizza du moment : 4 fromages</p>
-                <button id="order-button">
-                    <a href='vuePizzaClient.php'>
-                        Commander
-                        <img src="../static/img/shop_icon.png" alt="Shop Icon" id="shop-icon">
-                </button>
-            </div>
-        </div>
+        <?php
+        include("../controller/controllerPizza.php");
+        $resultat = controllerPizza::getPizzaDuMoment();
+        $row = $resultat->fetch(PDO::FETCH_ASSOC);
+        $nomPizza = htmlspecialchars($row['nomPizza']);
+        $lien_image = htmlspecialchars($row['lienImage']);
+        echo "<div id='presentation'>
+                <img src='../static/$lien_image' alt='Pizza du moment' id='pizza-image'>
+                <div id='pizza-details'>
+                    <p id='pizza-title'>Pizza du moment : $nomPizza</p>
+                    <button id='order-button'>
+                        <a href='vuePizzaClient.php'>
+                            Commander
+                            <img src='../static/img/shop_icon.png' alt='Shop Icon' id='icon'>
+                    </button>
+                </div>
+                </div>"
+                
+            ?>
+
         <div id="additional-text">
             Toutes vos pizzas sont personnalisables ! <br>
             Des boissons ou des desserts sont également disponibles.
@@ -32,11 +41,11 @@
             -50% sur votre prochaine commande si votre dernière commande dure plus de 45min.
         </div>
         <?php
-            if (session_status() === PHP_SESSION_NONE) {
-                session_start();
-            }
-            if(!isset($_SESSION["nom"])){
-                echo "
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        if (!isset($_SESSION["nom"])) {
+            echo "
                 <div id='button-container'>
                 <button id='compte-button'>
                     <a href='vueEspaceCompte.php'>
@@ -53,8 +62,8 @@
             </button>
         </div>
                 ";
-            }
-            ?>
+        }
+        ?>
         <br>
     </main>
 
