@@ -22,13 +22,13 @@
                 // Parcourir les résultats et afficher les pizzas 
                 while ($row = $pizzaPanier->fetch(PDO::FETCH_ASSOC)) {
                     $id = htmlspecialchars($row['idPizza']);
-                    $lien_image = htmlspecialchars($row['lienImage']);
+                    $lienImage = htmlspecialchars($row['lienImage']);
                     $nom = htmlspecialchars($row['nomPizza']);
                     $allergenes = htmlspecialchars($row['nomAllergene']);
                     $quantite = $tabQuantite[$id];
                     $prix = controllerPizza::getPrixPizza($id);
                     echo "<div class='pizza-container'>";
-                    echo "<img src='../static/$lien_image' alt='Pizza' class='pizza-image'>";
+                    echo "<img src='../static/$lienImage' alt='Pizza' class='pizza-image'>";
                     echo "<p id='pizza-title'>$nom</p>";
                     echo "<p class='pizza-allergenes'>Allergènes : $allergenes</p>";
                     echo "<p class='pizza-prix'>Quantite : $quantite </p>";

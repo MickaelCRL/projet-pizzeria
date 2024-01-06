@@ -23,13 +23,13 @@
         if ($pizza->rowCount() > 0) {
             $row = $pizza->fetch(PDO::FETCH_ASSOC);
             $nomPizza = htmlspecialchars($row['nomPizza']);
-            $lien_image = htmlspecialchars($row['lienImage']);
+            $lienImage = htmlspecialchars($row['lienImage']);
             // Récupérer la liste des ingrédients de la pizza personnalisée
             $ingredientsPizza = controllerPizza::getPizzaIngredient($idPizza);
             ?>
 
             <div class='pizza-container'>
-                <img src='../static/<?php echo $lien_image; ?>' alt='Pizza' class='pizza-image'>
+                <img src='../static/<?php echo $lienImage; ?>' alt='Pizza' class='pizza-image'>
                 <p id='pizza-title'>
                     <?php echo $nomPizza; ?>
                 </p>

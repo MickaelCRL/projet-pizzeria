@@ -31,7 +31,7 @@ function test() {
       alert("Veuillez choisir un mode de paiement.");
     } else {
       alert("Commande confirmée avec " + choixPaiement);
-      window.location.href = "../../actions/viderLePanier.php";
+      window.location.href = "../../actions/creerCommande.php";
     }
   } else {
     alert(

@@ -17,9 +17,9 @@
         $resultat = controllerPizza::getPizzaDuMoment();
         $row = $resultat->fetch(PDO::FETCH_ASSOC);
         $nomPizza = htmlspecialchars($row['nomPizza']);
-        $lien_image = htmlspecialchars($row['lienImage']);
+        $lienImage = htmlspecialchars($row['lienImage']);
         echo "<div id='presentation'>
-                <img src='../static/$lien_image' alt='Pizza du moment' id='pizza-image'>
+                <img src='../static/$lienImage' alt='Pizza du moment' id='pizza-image'>
                 <div id='pizza-details'>
                     <p id='pizza-title'>Pizza du moment : $nomPizza</p>
                     <button id='order-button'>";

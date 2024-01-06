@@ -17,7 +17,7 @@ class modelPizza
         $statement = connexion::pdo()->prepare($requete);
         $statement->bindParam(':idPizza', $idPizza);
         $statement->execute();
-        return $statement; 
+        return $statement;
     }
 
     public static function calculPrix($id)
@@ -75,6 +75,20 @@ class modelPizza
         connexion::connect();
         $resultat = connexion::pdo()->query($requete);
         return $resultat;
+    }
+    public static function addPizza($nomPizza, $pizzaDuMoment, $recette, $quantitePizzaAPrepare, $etatPizza, $lienImage)
+    {
+        connexion::connect();
+        $requete = "INSERT INTO Pizza (nomPizza, lienImage) VALUES (:nomPizza, :pizzaDuMoment, :recette, :quantitePizzaAPrepare, :etatPizza, :lienImage)";
+        $stmt = connexion::pdo()->prepare($requete);
+        $stmt->bindParam(':nomPizza', $nomPizza, PDO::PARAM_STR);
+        $stmt->bindParam(':pizzaDuMoment', $pizzaDuMoment, PDO::PARAM_STR);
+        $stmt->bindParam(':recette', $recette, PDO::PARAM_STR);
+        $stmt->bindParam(':quantitePizzaAPrepare', $quantitePizzaAPrepare, PDO::PARAM_STR);
+        $stmt->bindParam(':etatPizza', $etatPizza, PDO::PARAM_STR);
+        $stmt->bindParam(':lienImage', $lienImage, PDO::PARAM_STR);
+        $stmt->execute();
+
     }
 
     public static function nouvellePizza($nomPizza, $lienImage)
@@ -145,7 +159,7 @@ class modelPizza
         $requete = "DELETE FROM Pizza WHERE idPizza = :idPizza";
         $resultat = connexion::pdo()->prepare($requete);
         $resultat->bindParam(':idPizza', $idPizza);
-        $resultat->execute();      
+        $resultat->execute();
         return $resultat;
     }
 

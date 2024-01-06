@@ -40,18 +40,25 @@ class controllerPizza
         return modelPizza::getPizzaDuMoment();
     }
 
+    public static function addPizza($nomPizza, $pizzaDuMoment, $recette, $quantitePizzaAPrepare, $etatPizza, $lienImage)
+    {
+        return modelPizza::addPizza($nomPizza, $pizzaDuMoment, $recette, $quantitePizzaAPrepare, $etatPizza, $lienImage);
+    }
+
     public static function nouvellePizza($nomPizza, $lienImage)
     {
         $idNouvellePizza = modelPizza::nouvellePizza($nomPizza, $lienImage);
         return $idNouvellePizza;
     }
 
-    public static function updateRecettePizza($idPizza){
+    public static function updateRecettePizza($idPizza)
+    {
         modelPizza::updateRecettePizza($idPizza);
     }
 
-    public static function nouvelAllergenePizza($idPizza,$nomAllergene){
-        modelPizza::nouvelAllergenePizza($idPizza,$nomAllergene);
+    public static function nouvelAllergenePizza($idPizza, $nomAllergene)
+    {
+        modelPizza::nouvelAllergenePizza($idPizza, $nomAllergene);
     }
 
     public static function calculDistancePizzeria($pizzeriaAddress, $destination)
@@ -59,10 +66,12 @@ class controllerPizza
 
     }
 
-    public static function getAllergenePizza($idPizza){
+    public static function getAllergenePizza($idPizza)
+    {
         return modelPizza::getAllergenePizza($idPizza);
     }
-    public static function supprimerPizza($idPizza){
+    public static function supprimerPizza($idPizza)
+    {
         modelPizza::supprimerPizza($idPizza);
     }
 }

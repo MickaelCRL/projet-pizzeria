@@ -120,7 +120,7 @@
         <?php
 
         if (isset($_POST['annuler'])) {
-            header('Location: ../actions/viderLePanier.php');
+            header('Location: ../actions/viderPanier.php');
         }
         ?>
         <form method="post">

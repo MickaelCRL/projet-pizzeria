@@ -26,13 +26,13 @@
             if ($listPizza->rowCount() > 0) {
                 while ($row = $listPizza->fetch(PDO::FETCH_ASSOC)) {
                     $id = htmlspecialchars($row['idPizza']);
-                    $lien_image = htmlspecialchars($row['lienImage']);
+                    $lienImage = htmlspecialchars($row['lienImage']);
                     $nom = htmlspecialchars($row['nomPizza']);
                     $result = controllerPizza::getAllergenePizza($id);
                     $allergenes = "";
                     $prix = controllerPizza::getPrixPizza($id);
                     echo "<div class='pizza-container'>";
-                    echo "<img src='../static/$lien_image' alt='Pizza' class='pizza-image'>";
+                    echo "<img src='../static/$lienImage' alt='Pizza' class='pizza-image'>";
                     echo "<p id='pizza-title'>$nom</p>";
                     // Affichage des allergènes
                     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
