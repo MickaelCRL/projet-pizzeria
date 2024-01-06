@@ -79,16 +79,15 @@ class modelPizza
     public static function addPizza($nomPizza, $pizzaDuMoment, $recette, $quantitePizzaAPrepare, $etatPizza, $lienImage)
     {
         connexion::connect();
-        $requete = "INSERT INTO Pizza (nomPizza, lienImage) VALUES (:nomPizza, :pizzaDuMoment, :recette, :quantitePizzaAPrepare, :etatPizza, :lienImage)";
+        $requete = "INSERT INTO Pizza (nomPizza, pizzaDuMoment, recette, quantitePizzaAPrepare, etatPizza, lienImage) VALUES (:nomPizza, :pizzaDuMoment, :recette, :quantitePizzaAPrepare, :etatPizza, :lienImage)";
         $stmt = connexion::pdo()->prepare($requete);
         $stmt->bindParam(':nomPizza', $nomPizza, PDO::PARAM_STR);
-        $stmt->bindParam(':pizzaDuMoment', $pizzaDuMoment, PDO::PARAM_STR);
+        $stmt->bindParam(':pizzaDuMoment', $pizzaDuMoment, PDO::PARAM_INT);
         $stmt->bindParam(':recette', $recette, PDO::PARAM_STR);
-        $stmt->bindParam(':quantitePizzaAPrepare', $quantitePizzaAPrepare, PDO::PARAM_STR);
-        $stmt->bindParam(':etatPizza', $etatPizza, PDO::PARAM_STR);
+        $stmt->bindParam(':quantitePizzaAPrepare', $quantitePizzaAPrepare, PDO::PARAM_INT);
+        $stmt->bindParam(':etatPizza', $etatPizza, PDO::PARAM_INT);
         $stmt->bindParam(':lienImage', $lienImage, PDO::PARAM_STR);
         $stmt->execute();
-
     }
 
     public static function nouvellePizza($nomPizza, $lienImage)

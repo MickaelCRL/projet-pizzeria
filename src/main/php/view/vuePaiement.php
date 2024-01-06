@@ -36,22 +36,29 @@
                 <label for="code-postal">Code Postal :</label>
                 <input type="text" id="code-postal" name="code-postal"
                     value="<?php echo isset($_POST['code-postal']) ? htmlspecialchars($_POST['code-postal']) : ''; ?>"><br><br>
-                <button type="submit" name="enregistrer" onclick="event.preventDefault(); test2();">Enregistrer</button>
+                <button type="submit" name="enregistrer" onclick="test2();">Enregistrer</button>
             </form>
         </div>
     </section>
     <?php
     include("../controller/controllerPizzeria.php");
-    if (!empty($_POST['adresse']) || !empty($_POST['ville']) || !empty($_POST['code-postal'])) {
-        if (empty($_POST['adresse']) || empty($_POST['ville']) || empty($_POST['code-postal'])) {
-            echo "<script>alert('Veuillez renseigner une adresse complète pour la livraison. Rien pas de livraison.');</script>";
-        } else {
-            $destination = $_POST['adresse'] . ', ' . $_POST['ville'] . ', ' . $_POST['code-postal'] . ", France";
-            $distance = controllerPizzeria::calculDistancePizzeria($destination);
-            if ($distance > 30 || $distance == -1) {
-                echo "<script>alert('Vous êtes trop loin veuillez renseigner une autre adresse $distance minutes');</script>";
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if (!empty($_POST['adresse']) || !empty($_POST['ville']) || !empty($_POST['code-postal'])) {
+            if (empty($_POST['adresse']) || empty($_POST['ville']) || empty($_POST['code-postal'])) {
+                echo "<script>alert('Veuillez renseigner une adresse complète pour la livraison. Rien pas de livraison.');</script>";
             } else {
-                echo "<script>alert('Enregistré $distance minutes');</script>";
+                $destination = $_POST['adresse'] . ', ' . $_POST['ville'] . ', ' . $_POST['code-postal'] . ", France";
+                $distance = controllerPizzeria::calculDistancePizzeria($destination);
+                if ($distance > 30 || $distance == -1) {
+                    echo "<script>alert('Vous êtes trop loin veuillez renseigner une autre adresse $distance minutes');</script>";
+                } else {
+                    $_SESSION['adresse'] = $_POST['adresse'];
+                    $_SESSION['ville'] = $_POST['ville'];
+                    $_SESSION['codePostal'] = $_POST['code-postal'];
+                    $ville = $_SESSION['ville'];
+                    $enregistrerClique = true;
+                    echo "<script>alert('Enregistré $distance minutes   $ville');</script>";
+                }
             }
         }
     }
@@ -136,7 +143,9 @@
     </section>
 
     <section>
-        <button id="confirmer" onclick="test()">Confirmer la commande</button>
+        <?php
+        echo "<button id=\"confirmer\" onclick=\"test($enregistrerClique)\">Confirmer la commande</button>";
+        ?>
     </section>
 </body>
 <?php include("../view/footer.html"); ?>

@@ -51,6 +51,10 @@
                     $_SESSION["panierProduit"] = array();
                     $_SESSION["tabQuantiteProduit"] = array();
                     $_SESSION["prixTotal"] = 0;
+                    $_SESSION['modePaiement'] = "";
+                    $_SESSION['adresse'] = "";
+                    $_SESSION['ville'] = "";
+                    $_SESSION['codePostal'] = "";
                     $_SESSION["estGestionnaire"] = false;
                     header('Location: ../view/vueEspaceCompte.php');
                 }

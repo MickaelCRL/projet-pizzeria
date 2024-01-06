@@ -30,6 +30,7 @@ class modelProduit
         return $prix;
     }
 
+
 }
 
 ?>

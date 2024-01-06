@@ -8,6 +8,11 @@ function selectPayment(paymentType) {
   );
   if (response) {
     alert("Paiement confirmé");
+    $.ajax({
+      type: "POST",
+      url: "../../actions/addModePaiement.php",
+      data: { choixPaiement: choixPaiement },
+    });
   } else {
     choixPaiement = "";
   }
@@ -25,13 +30,14 @@ function test2() {
   alert("Informations enregistrées !" + enregistrerClique);
 }
 
-function test() {
+function test(enregistrerClique) {
   if (enregistrerClique) {
     if (choixPaiement === "") {
       alert("Veuillez choisir un mode de paiement.");
     } else {
       alert("Commande confirmée avec " + choixPaiement);
-      window.location.href = "../../actions/creerCommande.php";
+      window.location.href =
+        "https://projets.iut-orsay.fr/pizzeria/actions/creerCommande.php?";
     }
   } else {
     alert(

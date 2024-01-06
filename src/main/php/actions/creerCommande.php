@@ -4,6 +4,11 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 include_once("../controller/controllerPizza.php");
+include_once("../controller/controllerCommande.php");
+include_once("../controller/controllerAdresse.php");
+include_once("../controller/controllerVille.php");
+include_once("../controller/controllerClient.php");
+
 // $_SESSION['panier'] 
 // $_SESSION['tabQuantite'] 
 // $_SESSION['panierProduit'] 
@@ -34,5 +39,46 @@ foreach ($_SESSION['panier'] as $idPizza) {
     }
 }
 
-header('Location: ../view/viderPanier.php');
+
+
+
+$dateCommande = date("Y-m-d H:i:s");
+$modePaiement = $_SESSION['modePaiement'];
+$idClient = controllerClient::getIdClientByIdCompteClient($_SESSION["idCompteClient"]);
+
+$adresse = $_SESSION['adresse'];
+$ville = $_SESSION['ville'];
+$codePostal = $_SESSION['codePostal'];
+
+
+
+
+$resultGetIdVille = controllerVille::getIdVille($ville, $codePostal);
+if ($resultGetIdVille) {
+    $idVille = $resultGetIdVille['idVille'];
+
+    $resultGetIdAdresse = controllerAdresse::getIdAdresse($adresse);
+
+    if ($resultGetIdAdresse) {
+        $idAdresse = $resultGetIdAdresse['idAdresse'];
+
+    } else {
+        controllerAdresse::addAdresse($adresse, $idVille);
+        $idAdresse = controllerAdresse::getIdAdresse($adresse);
+    }
+
+} else {
+    controllerVille::addVille($ville, $codePostal);
+    $idVille = controllerVille::getIdVille($idVille, $codePostal);
+    controllerAdresse::addAdresse($adresse, $idVille);
+    $idAdresse = controllerAdresse::getIdAdresse($adresse);
+}
+
+
+controllerCommande::addCommande($dateCommande, $modePaiement, $idClient, $idAdresse);
+
+
+
+
+header('Location: ../actions/viderPanier.php');
 ?>

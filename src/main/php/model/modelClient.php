@@ -4,6 +4,20 @@ require_once("../config/connexion.php");
 
 class modelClient
 {
+    public static function getIdClientByIdCompteClient($idCompteClient)
+    {
+        connexion::connect();
+        $pdo = connexion::pdo();
+
+        $requete = "SELECT idClient FROM Client WHERE idCompteClient = :idCompteClient";
+        $stmt = $pdo->prepare($requete);
+        $stmt->bindParam(':idCompteClient', $idCompteClient, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['idClient'];
+
+    }
 
     public static function update($idCompteClient, $nom, $prenom, $email, $telephone, $password)
     {

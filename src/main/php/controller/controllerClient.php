@@ -9,12 +9,15 @@ class controllerClient
         return $resultat;
     }
 
-
+    public static function getIdClientByIdCompteClient($idCompteClient)
+    {
+        return modelClient::getIdClientByIdCompteClient($idCompteClient);
+    }
 
     public static function connexionCompteClient($email, $password)
     {
         $resultat = modelClient::getPasswordHash($email);
-        if(!$resultat){
+        if (!$resultat) {
             return $resultat;
         }
         $passwordRow = $resultat->fetch(PDO::FETCH_ASSOC);
@@ -24,7 +27,7 @@ class controllerClient
             return $resultat;
         }
 
-        if (password_verify($_POST["mot_de_passe"], $passwordHash)) {            
+        if (password_verify($_POST["mot_de_passe"], $passwordHash)) {
             $resultat = modelClient::connexion($email, $passwordHash);
             return $resultat;
         }
