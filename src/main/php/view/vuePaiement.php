@@ -7,8 +7,7 @@
     <title>Page de paiement</title>
     <link rel="stylesheet" href="../static/css/style.css">
     <link rel="stylesheet" href="../static/css/vuePaiement.css">
-    <script src="../static/js/calculateDistance.js" defer></script>
-    <script src="../static/js/verifPaiement.js" defer></script>
+    <script src="../static/js/verifPaiement.js"></script>
 </head>
 <?php include("./navigation.php"); ?>
 
@@ -37,7 +36,7 @@
                 <label for="code-postal">Code Postal :</label>
                 <input type="text" id="code-postal" name="code-postal"
                     value="<?php echo isset($_POST['code-postal']) ? htmlspecialchars($_POST['code-postal']) : ''; ?>"><br><br>
-                <button type="submit" name="submit">Enregistrer</button>
+                <button type="submit" name="enregistrer" onclick="event.preventDefault(); test2();">Enregistrer</button>
             </form>
         </div>
     </section>
@@ -121,13 +120,7 @@
         <?php
 
         if (isset($_POST['annuler'])) {
-            // Vider le panier en réinitialisant les variables de session
-            $_SESSION['panier'] = array();
-            $_SESSION['tabQuantite'] = array();
-            $_SESSION['prixTotal'] = 0;
-
-            header('Location: ../view/vueAccueil.php');
-            exit();
+            header('Location: ../actions/viderLePanier.php');
         }
         ?>
         <form method="post">
@@ -143,7 +136,7 @@
     </section>
 
     <section>
-        <button id="confirmer" onclick="confirmCommande()">Confirmer la commande</button>
+        <button id="confirmer" onclick="test()">Confirmer la commande</button>
     </section>
 </body>
 <?php include("../view/footer.html"); ?>

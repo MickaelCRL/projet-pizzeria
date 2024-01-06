@@ -13,10 +13,30 @@ function selectPayment(paymentType) {
   }
 }
 
-function confirmCommande() {
-  if (choixPaiement === "") {
-    alert("Veuillez choisir un mode de paiement.");
+function enregistrer() {
+  enregistrerClique = true;
+  alert("Informations enregistrées !");
+}
+
+var enregistrerClique = false;
+
+function test2() {
+  enregistrerClique = true;
+  alert("Informations enregistrées !" + enregistrerClique);
+}
+
+function test() {
+  if (enregistrerClique) {
+    if (choixPaiement === "") {
+      alert("Veuillez choisir un mode de paiement.");
+    } else {
+      alert("Commande confirmée avec " + choixPaiement);
+      window.location.href = "../../actions/viderLePanier.php";
+    }
   } else {
-    alert("Commande confirmé " + choixPaiement);
+    alert(
+      "Veuillez enregistrer vos informations avant de confirmer la commande." +
+        enregistrerClique
+    );
   }
 }
