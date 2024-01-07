@@ -1,19 +1,20 @@
 section {
-    width: 100%;
-    height: auto;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    margin: 100px 0;
-  }
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 100px 0;
+}
 
+.vuePaiement {
+  color: black;
+}
 
-  .vuePaiement{
-    color: black;
-  }
+.recap-commande {
+  color: black;
+}
 
-  .recap-commande{
-    color: black;
-  }
- 
-
+input {
+  width: auto;
+}
