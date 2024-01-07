@@ -3,9 +3,9 @@ require_once("../model/modelCommande.php");
 
 class controllerCommande
 {
-    public static function addCommande($dateCommande, $modePaiement, $idClient, $idAdresse)
+    public static function addCommandeAndGetId($dateCommande, $modePaiement, $idClient, $idAdresse)
     {
-        modelCommande::addCommande($dateCommande, $modePaiement, $idClient, $idAdresse);
+        return modelCommande::addCommandeAndGetId($dateCommande, $modePaiement, $idClient, $idAdresse);
     }
 }
 ?>

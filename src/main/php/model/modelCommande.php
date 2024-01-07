@@ -4,7 +4,7 @@ require_once("../config/connexion.php");
 
 class modelCommande
 {
-    public static function addCommande($dateCommande, $modePaiement, $idClient, $idAdresse)
+    public static function addCommandeAndGetId($dateCommande, $modePaiement, $idClient, $idAdresse)
     {
         connexion::connect();
         $pdo = connexion::pdo();
@@ -16,6 +16,9 @@ class modelCommande
         $stmt->bindParam(':idClient', $idClient, PDO::PARAM_INT);
         $stmt->bindParam(':idAdresse', $idAdresse, PDO::PARAM_INT);
         $stmt->execute();
+
+        $idCommande = $pdo->lastInsertId();
+        return $idCommande;
     }
 }
 

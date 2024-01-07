@@ -111,10 +111,9 @@
             if (!empty($_SESSION['panierProduit']) && !empty($_SESSION['tabQuantiteProduit'])) {
                 echo "<div class='recap-commande-produits'>";
                 foreach ($_SESSION['panierProduit'] as $idProduit) {
-
-                    $produitDetails = controllerProduit::getProduitPanier($idProduit);
-                    if ($produitDetails->rowCount() > 0) {
-                        while ($row = $produitDetails->fetch(PDO::FETCH_ASSOC)) {
+                    $produitPanier = controllerProduit::getProduitPanier($idProduit);
+                    if ($produitPanier->rowCount() > 0) {
+                        while ($row = $produitPanier->fetch(PDO::FETCH_ASSOC)) {
                             $nomProduit = htmlspecialchars($row['nomProduit']);
                             $quantiteProduit = $_SESSION['tabQuantiteProduit'][$idProduit];
                             $prixProduit = controllerProduit::getPrixProduit($idProduit);

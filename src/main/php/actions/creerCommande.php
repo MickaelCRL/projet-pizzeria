@@ -8,6 +8,9 @@ include_once("../controller/controllerCommande.php");
 include_once("../controller/controllerAdresse.php");
 include_once("../controller/controllerVille.php");
 include_once("../controller/controllerClient.php");
+include_once("../controller/controllerContient.php");
+include_once("../controller/controllerProduit.php");
+include_once("../controller/controllerInclut.php");
 
 // $_SESSION['panier'] 
 // $_SESSION['tabQuantite'] 
@@ -15,43 +18,12 @@ include_once("../controller/controllerClient.php");
 // $_SESSION['tabQuantiteProduit'] 
 // $_SESSION['prixTotal']
 
-$panier = $_SESSION['panier'];
-$tabQuantite = $_SESSION['tabQuantite'];
-
-foreach ($_SESSION['panier'] as $idPizza) {
-
-    $pizzaPanier = controllerPizza::getPizzaPanier($idPizza);
-    if ($pizzaPanier->rowCount() > 0) {
-        // Parcourir les résultats et afficher les pizzas 
-        while ($row = $pizzaPanier->fetch(PDO::FETCH_ASSOC)) {
-            $id = htmlspecialchars($row['idPizza']);
-            $lienImage = htmlspecialchars($row['lienImage']);
-            $nomPizza = htmlspecialchars($row['nomPizza']);
-            $pizzaDuMoment = false;
-            $elementRecette = controllerPizza::getPizzaIngredient($id);
-            $recette = implode(", ", $elementRecette);
-            $etatPizza = false;
-            $quantitePizzaAPrepare = $tabQuantite[$id];
-
-            controllerPizza::addPizza($nomPizza, $pizzaDuMoment, $recette, $quantitePizzaAPrepare, $etatPizza, $lienImage);
-        }
-
-    }
-}
-
-
-
-
 $dateCommande = date("Y-m-d H:i:s");
 $modePaiement = $_SESSION['modePaiement'];
 $idClient = controllerClient::getIdClientByIdCompteClient($_SESSION["idCompteClient"]);
-
 $adresse = $_SESSION['adresse'];
 $ville = $_SESSION['ville'];
 $codePostal = $_SESSION['codePostal'];
-
-
-
 
 $resultGetIdVille = controllerVille::getIdVille($ville, $codePostal);
 if ($resultGetIdVille) {
@@ -74,8 +46,49 @@ if ($resultGetIdVille) {
     $idAdresse = controllerAdresse::getIdAdresse($adresse);
 }
 
+$idCommande = controllerCommande::addCommandeAndGetId($dateCommande, $modePaiement, $idClient, $idAdresse);
 
-controllerCommande::addCommande($dateCommande, $modePaiement, $idClient, $idAdresse);
+$panier = $_SESSION['panier'];
+$tabQuantite = $_SESSION['tabQuantite'];
+
+foreach ($panier as $idPizza) {
+    $pizzaPanier = controllerPizza::getPizzaPanier($idPizza);
+
+    if ($pizzaPanier->rowCount() > 0) {
+
+        while ($row = $pizzaPanier->fetch(PDO::FETCH_ASSOC)) {
+            $lienImage = htmlspecialchars($row['lienImage']);
+            $nomPizza = htmlspecialchars($row['nomPizza']);
+            $pizzaDuMoment = false;
+            $elementRecette = controllerPizza::getPizzaIngredient($idPizza);
+            $recette = implode(", ", $elementRecette);
+            $etatPizza = false;
+            $quantitePizzaAPrepare = $tabQuantite[$idPizza];
+
+            controllerPizza::addPizza($nomPizza, $pizzaDuMoment, $recette, $quantitePizzaAPrepare, $etatPizza, $lienImage);
+            controllerContient::addContient($idCommande, $idPizza, $recette, $quantitePizzaAPrepare);
+        }
+
+    }
+}
+$panierProduit = $_SESSION['panierProduit'];
+
+foreach ($panierProduit as $idProduit) {
+    $produitPanier = controllerProduit::getProduitPanier($idProduit);
+
+    if ($produitPanier->rowCount() > 0) {
+
+        while ($row = $produitPanier->fetch(PDO::FETCH_ASSOC)) {
+            $quantiteInclut = $_SESSION['tabQuantiteProduit'][$idProduit];
+            controllerInclut::addInclut($idCommande, $idProduit, $quantiteInclut);
+
+        }
+    }
+}
+
+
+
+
 
 
 
