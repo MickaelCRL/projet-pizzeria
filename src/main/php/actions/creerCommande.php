@@ -41,7 +41,7 @@ if ($resultGetIdVille) {
 
 } else {
     controllerVille::addVille($ville, $codePostal);
-    $idVille = controllerVille::getIdVille($idVille, $codePostal);
+    $idVille = controllerVille::getIdVille($ville, $codePostal);
     controllerAdresse::addAdresse($adresse, $idVille);
     $idAdresse = controllerAdresse::getIdAdresse($adresse);
 }
@@ -66,7 +66,7 @@ foreach ($panier as $idPizza) {
             $quantitePizzaAPrepare = $tabQuantite[$idPizza];
 
             controllerPizza::addPizza($nomPizza, $pizzaDuMoment, $recette, $quantitePizzaAPrepare, $etatPizza, $lienImage);
-            controllerContient::addContient($idCommande, $idPizza, $recette, $quantitePizzaAPrepare);
+            controllerContient::addContient($idCommande, $idPizza, null, $quantitePizzaAPrepare);
         }
 
     }
