@@ -69,6 +69,18 @@ class modelIngredient
         $resultat->execute();
         return $resultat;
     }
+
+    public static function getPrixByNomIngredient($nomIngredient)
+    {
+        $requete = "SELECT prixIngredient FROM Ingredient WHERE nomIngredient = :nomIngredient";
+        connexion::connect();
+        $resultat = connexion::pdo()->prepare($requete);
+        $resultat->bindParam(':nomIngredient', $nomIngredient);
+        $resultat->execute();
+        return $resultat->fetch(PDO::FETCH_ASSOC);
+    }
+
+
 }
 
 ?>

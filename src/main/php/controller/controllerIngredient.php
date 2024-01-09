@@ -28,6 +28,11 @@ class controllerIngredient
     {
         return modelIngredient::updateSeuilAlerteIngredient($idIngredient, $seuilAlerte);
     }
+
+    public static function getPrixByNomIngredient($nomIngredient)
+    {
+        return modelIngredient::getPrixByNomIngredient($nomIngredient);
+    }
 }
 
 ?>
