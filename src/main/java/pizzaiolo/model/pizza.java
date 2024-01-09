@@ -1,3 +1,7 @@
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
  * Classe pizza. Cette classe permet de créer les pizzas
  * qui seront ajoutés dans la liste des pizzas à préparer.
@@ -6,10 +10,11 @@
  * sans être en retard.
  */
 public class pizza {
+	private int id;
     private String nom;
     private String ingredients;
-    private String quantiteAPreparer;
-    private CompteARebours cab;
+    private int quantiteAPreparer; 
+    private  CompteARebours cab;
 
     /**
      * Constructeur de la classe pizza.
@@ -19,11 +24,21 @@ public class pizza {
      * @param quantiteAPreparer Quantité de pizzas à préparer
      * @param cab               Compte à rebours de la pizza
      */
-    public pizza(String nom, String ingredients, String quantiteAPreparer, CompteARebours cab) {
+    public pizza(int id, String nom, String ingredients,int quantiteAPreparer, CompteARebours cab) {
+    	this.id = id;
         this.nom = nom;
         this.ingredients = ingredients;
         this.quantiteAPreparer = quantiteAPreparer;
         this.cab = cab;
+    }
+    
+
+    /**
+     * Méthode qui permet de récupérer l'id de la pizza.
+     * @return l'identifiant unique de la pizza
+     */
+    public int getId() {
+        return id;
     }
 
     /**
@@ -46,8 +61,12 @@ public class pizza {
      * Méthode qui permet de récupérer la quantité de pizzas à préparer.
      * @return La quantité de pizzas à préparer
      */
-    public String getQuantiteAPreparer() {
+    public int getQuantiteAPreparer() {
         return quantiteAPreparer;
+    }
+    
+    public void setQuantiteAPreparer(int nouvelleQuantiteAPreparer) {
+    	this.quantiteAPreparer = nouvelleQuantiteAPreparer;
     }
 
     /**
@@ -65,4 +84,21 @@ public class pizza {
     public void setCab(CompteARebours cab2) {
         this.cab = cab2;
     }
+    
+    
+    public String getNomById(int id, OutilsJDBC o, Connection c) {
+    	 ResultSet monResultat = o.exec1Requete("SELECT * FROM Pizza WHERE etatPizza=false", c, 0);
+    	 try {
+             while (monResultat.next()) {
+            	 if(monResultat.getInt(1)== id) {
+            		 return monResultat.getString(2);
+            	 }
+             }
+             
+    }catch (SQLException e) {
+        System.out.println("Erreur conçernant le ResultSet");
+        
+    }
+    return "";
+}
 }

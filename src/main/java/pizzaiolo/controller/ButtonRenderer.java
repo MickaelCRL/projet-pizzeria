@@ -1,4 +1,3 @@
- // Paramètres des boutons et du tableau pour un rendu graphique correct de bouton dans une cellule de tableau
 
 import java.awt.Component;
 
@@ -6,7 +5,7 @@ import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
-class ButtonRenderer extends JButton implements TableCellRenderer {
+public class ButtonRenderer extends JButton implements TableCellRenderer {
         public ButtonRenderer() {
             setOpaque(true);
         }

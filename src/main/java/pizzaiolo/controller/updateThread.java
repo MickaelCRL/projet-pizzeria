@@ -6,11 +6,11 @@ import java.sql.Connection;
  */
 public class updateThread extends Thread {
 
-    private FenetrePizzaiolo f;
+    private FenetrePizzaiolo testButton;
     private Connection co;
     private OutilsJDBC outilsJDBC;
-    private String[][] data;
 
+    
     /**
      * Constructeur de la classe updateThread.
      * 
@@ -18,23 +18,22 @@ public class updateThread extends Thread {
      * @param co          Connexion à la base de données
      * @param outilsJDBC  Outils pour la base de données
      */
-    public updateThread(FenetrePizzaiolo f, Connection co, OutilsJDBC outilsJDBC, String[][] data) {
+    public updateThread(FenetrePizzaiolo testButton, Connection co, OutilsJDBC outilsJDBC) {
         super();
-        this.f = f;
+        this.testButton = testButton;
         this.co = co;
         this.outilsJDBC = outilsJDBC;
-        this.data = data;
     }
 
-    /**
+     /**
      * Méthode qui permet de lancer le thread.
      * Elle appelle la méthode updateDataFromDataBase de la classe FenetrePizzaiolo
      * pour mettre à jour les données du tableau.
      */
     public void run() {
         while (true) {
-            f.updateDataFromDataBase(co, outilsJDBC,data);
-            System.out.println("update");
+            System.out.println("Le thread est là");
+            testButton.updateDataFromDataBase(co, outilsJDBC);
             try {
                 Thread.sleep(10000); // Pause le thread pendant 10 secondes
             } catch (InterruptedException e) {
@@ -42,4 +41,5 @@ public class updateThread extends Thread {
             }
         }
     }
+    
 }

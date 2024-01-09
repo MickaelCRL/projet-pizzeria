@@ -1,3 +1,4 @@
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -29,7 +30,6 @@ public class CompteARebours {
     public String getCompteARebours() {
         int minutes = tempsRestant / 60;
         int secondes = tempsRestant % 60;
-        //System.out.println(String.format("%02d:%02d", minutes, secondes));
         return String.format("%02d:%02d", minutes, secondes);
 
     }
@@ -45,7 +45,6 @@ public class CompteARebours {
         public void run() {
             if (tempsRestant > 0) {
                 compteARebours = getCompteARebours();
-                // System.out.println(compteARebours);
                 tempsRestant--;
             } else {
                 annulerCompteARebours();
@@ -78,7 +77,7 @@ public class CompteARebours {
 
     /**
      * Méthode qui permet d'annuler le compte à rebours. Elle est appelée lorsque le
-     * temps restant est égal à 0 (donc que le compte à rebours est terminé). 
+     * temps restant est égal à 0 (donc que le compte à rebours est terminé).
      */
     private static void annulerCompteARebours() {
         System.exit(0); // Terminer le programme après la fin du compte à rebours
