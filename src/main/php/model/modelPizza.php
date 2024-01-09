@@ -76,11 +76,12 @@ class modelPizza
         $resultat = connexion::pdo()->query($requete);
         return $resultat;
     }
-    public static function addPizza($nomPizza, $pizzaDuMoment, $recette, $quantitePizzaAPrepare, $etatPizza, $lienImage)
+    public static function addPizzaAndGetId($nomPizza, $pizzaDuMoment, $recette, $quantitePizzaAPrepare, $etatPizza, $lienImage)
     {
         connexion::connect();
+        $pdo = connexion::pdo();
         $requete = "INSERT INTO Pizza (nomPizza, pizzaDuMoment, recette, quantitePizzaAPrepare, etatPizza, lienImage) VALUES (:nomPizza, :pizzaDuMoment, :recette, :quantitePizzaAPrepare, :etatPizza, :lienImage)";
-        $stmt = connexion::pdo()->prepare($requete);
+        $stmt = $pdo->prepare($requete);
         $stmt->bindParam(':nomPizza', $nomPizza, PDO::PARAM_STR);
         $stmt->bindParam(':pizzaDuMoment', $pizzaDuMoment, PDO::PARAM_INT);
         $stmt->bindParam(':recette', $recette, PDO::PARAM_STR);
@@ -88,6 +89,8 @@ class modelPizza
         $stmt->bindParam(':etatPizza', $etatPizza, PDO::PARAM_INT);
         $stmt->bindParam(':lienImage', $lienImage, PDO::PARAM_STR);
         $stmt->execute();
+        $idPizza = $pdo->lastInsertId();
+        return $idPizza;
     }
 
     public static function nouvellePizza($nomPizza, $lienImage)

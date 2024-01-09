@@ -28,14 +28,14 @@
                     $id = htmlspecialchars($row['idPizza']);
                     $lienImage = htmlspecialchars($row['lienImage']);
                     $nom = htmlspecialchars($row['nomPizza']);
-                    $idAdresse = controllerPizza::getAllergenePizza($id);
+                    $idAllergene = controllerPizza::getAllergenePizza($id);
                     $allergenes = "";
                     $prix = controllerPizza::getPrixPizza($id);
                     echo "<div class='pizza-container'>";
                     echo "<img src='../static/$lienImage' alt='Pizza' class='pizza-image'>";
                     echo "<p id='pizza-title'>$nom</p>";
                     // Affichage des allergènes
-                    while ($row = $idAdresse->fetch(PDO::FETCH_ASSOC)) {
+                    while ($row = $idAllergene->fetch(PDO::FETCH_ASSOC)) {
                         $allergenes .= htmlspecialchars($row['nomAllergene']) . ", ";
                     }
                     // Enlever la dernière virgule

@@ -23,13 +23,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     include("../controller/controllerPizza.php");
     $idNouvellePizza = controllerPizza::nouvellePizza($nom, $lienImage);
     // Récupérer les quantités des ingrédients et leurs ID
-    include("../controller/controllerIngredient.php");
+    include("../controller/controllerUtilise.php");
     // Boucle pour les ingrédients
     foreach ($_POST['ingredient'] as $idIngredient => $value) {
         // Vérifier si la checkbox est cochée
         if ($value == $idIngredient) {
             // La checkbox est cochée, appel de la fonction
-            controllerIngredient::nouvelIngredientPizza($idNouvellePizza, $idIngredient);
+            controllerUtilise::addUtilise($idNouvellePizza, $idIngredient);
         }
     }
     // Boucle pour les allergènes

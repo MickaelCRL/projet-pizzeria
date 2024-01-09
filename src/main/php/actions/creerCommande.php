@@ -11,6 +11,8 @@ include_once("../controller/controllerClient.php");
 include_once("../controller/controllerContient.php");
 include_once("../controller/controllerProduit.php");
 include_once("../controller/controllerInclut.php");
+include_once("../controller/controllerUtilise.php");
+include_once("../controller/controllerIngredient.php");
 
 // $_SESSION['panier'] 
 // $_SESSION['tabQuantite'] 
@@ -32,21 +34,21 @@ if ($resultGetIdVille) {
     $resultGetIdAdresse = controllerAdresse::getIdAdresse($adresse);
 
     if ($resultGetIdAdresse) {
-        $idAdresse = $resultGetIdAdresse['idAdresse'];
+        $idAllergene = $resultGetIdAdresse['idAdresse'];
 
     } else {
         controllerAdresse::addAdresse($adresse, $idVille);
-        $idAdresse = controllerAdresse::getIdAdresse($adresse);
+        $idAllergene = controllerAdresse::getIdAdresse($adresse);
     }
 
 } else {
     controllerVille::addVille($ville, $codePostal);
     $idVille = controllerVille::getIdVille($ville, $codePostal);
     controllerAdresse::addAdresse($adresse, $idVille);
-    $idAdresse = controllerAdresse::getIdAdresse($adresse);
+    $idAllergene = controllerAdresse::getIdAdresse($adresse);
 }
 
-$idCommande = controllerCommande::addCommandeAndGetId($dateCommande, $modePaiement, $idClient, $idAdresse);
+$idCommande = controllerCommande::addCommandeAndGetId($dateCommande, $modePaiement, $idClient, $idAllergene);
 
 $panier = $_SESSION['panier'];
 $tabQuantite = $_SESSION['tabQuantite'];
@@ -65,8 +67,15 @@ foreach ($panier as $idPizza) {
             $etatPizza = false;
             $quantitePizzaAPrepare = $tabQuantite[$idPizza];
 
-            controllerPizza::addPizza($nomPizza, $pizzaDuMoment, $recette, $quantitePizzaAPrepare, $etatPizza, $lienImage);
+            $idNewpizza = controllerPizza::addPizzaAndGetId($nomPizza, $pizzaDuMoment, $recette, $quantitePizzaAPrepare, $etatPizza, $lienImage);
             controllerContient::addContient($idCommande, $idPizza, null, $quantitePizzaAPrepare);
+
+            foreach ($elementRecette as $nomIngredient) {
+                $idIngredient = controllerIngredient::getIngredientIdByNom($nomIngredient);
+                controllerUtilise::addUtilise($idNewpizza, $idIngredient);
+
+            }
+
         }
 
     }

@@ -40,9 +40,9 @@ class controllerPizza
         return modelPizza::getPizzaDuMoment();
     }
 
-    public static function addPizza($nomPizza, $pizzaDuMoment, $recette, $quantitePizzaAPrepare, $etatPizza, $lienImage)
+    public static function addPizzaAndGetId($nomPizza, $pizzaDuMoment, $recette, $quantitePizzaAPrepare, $etatPizza, $lienImage)
     {
-        return modelPizza::addPizza($nomPizza, $pizzaDuMoment, $recette, $quantitePizzaAPrepare, $etatPizza, $lienImage);
+        return modelPizza::addPizzaAndGetId($nomPizza, $pizzaDuMoment, $recette, $quantitePizzaAPrepare, $etatPizza, $lienImage);
     }
 
     public static function nouvellePizza($nomPizza, $lienImage)

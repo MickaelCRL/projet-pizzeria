@@ -47,6 +47,8 @@
                     $_SESSION['prenom'] = $prenom;
                     $_SESSION['idCompteClient'] = $Id;
                     $_SESSION["panier"] = array();
+                    $_SESSION["panierPizzaPersonaliser"] = array();
+                    $_SESSION["listeIngredientPersonnaliser"] = array();
                     $_SESSION["tabQuantite"] = array();
                     $_SESSION["panierProduit"] = array();
                     $_SESSION["tabQuantiteProduit"] = array();

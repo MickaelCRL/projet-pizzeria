@@ -33,40 +33,44 @@
                 <p id='pizza-title'>
                     <?php echo $nomPizza; ?>
                 </p>
+                <form id='ingredient-form' action='#' method='post'>
+                    <!-- Afficher les ingrédients de la pizza personnalisée -->
+                    <div class='ingredients'>
+                        <h2>Ingrédients de la pizza
+                            <?php echo $nomPizza; ?>
+                        </h2>
+                        <ul>
+                            <?php
+                            echo "<ul>";
+                            foreach ($ingredientsPizza as $ingredient) {
+                                $nomIngredient = htmlspecialchars($ingredient);
+                                $checked = isset($_POST['ingredient']) && in_array($nomIngredient, $_POST['ingredient']) || !isset($_POST['ingredient']) ? 'checked' : '';
+                                echo "<li><label><input type='checkbox' name='ingredient[]' value='$nomIngredient' $checked>$nomIngredient</label></li>";
+                            }
+                            echo "</ul>";
+                            ?>
+                        </ul>
+                    </div>
 
-                <!-- Afficher les ingrédients de la pizza personnalisée -->
-                <div class='pizza-ingredients'>
-                    <h2>Ingrédients de la pizza
-                        <?php echo $nomPizza; ?>
-                    </h2>
-                    <ul>
+                    <!-- Afficher la liste des autres ingrédients disponibles -->
+                    <div class='autres-ingredients'>
+                        <h2>Autres ingrédients disponibles</h2>
                         <?php
-                        foreach ($ingredientsPizza as $ingredient) {
-                            $nomIngredient = htmlspecialchars($ingredient);
-                            echo "<li>$nomIngredient<button class='retirer'>-</button></li></li>";
+                        $autresIngredients = controllerIngredient::getAutreIngredient($ingredientsPizza);
+                        if (count($autresIngredients) > 0) {
+                            echo "<ul>";
+                            foreach ($autresIngredients as $autreIngredient) {
+                                $checkedAutreIngredient = isset($_POST['ingredient']) && in_array($autreIngredient, $_POST['ingredient']) ? 'checked' : '';
+                                echo "<li><label><input type='checkbox' name='ingredient[]' value='$autreIngredient' $checkedAutreIngredient>$autreIngredient</label></li>";
+                            }
+                            echo "</ul>";
+                        } else {
+                            echo "<p>Aucun autre ingrédient disponible</p>";
                         }
                         ?>
-                    </ul>
-                </div>
+                    </div>
+                    <button type='submit' name='enregistrer'>Enregistrer</button>
 
-                <!-- Afficher la liste des autres ingrédients disponibles -->
-                <div class='autres-ingredients'>
-                    <h2>Autres ingrédients disponibles</h2>
-                    <?php
-                    $autresIngredients = controllerIngredient::getAutreIngredient($ingredientsPizza);
-
-                    if (count($autresIngredients) > 0) {
-                        echo "<ul>";
-                        foreach ($autresIngredients as $autreIngredient) {
-                            $nomAutreIngredient = $autreIngredient;
-                            echo "<li>$nomAutreIngredient<button class='ajouter'>+</button></li>";
-                        }
-                        echo "</ul>";
-                    } else {
-                        echo "<p>Aucun autre ingrédient disponible</p>";
-                    }
-                    ?>
-                </div>
             </div>
             <div class="actions">
                 <button type="button" class="ajouter-panier-button">Ajouter au panier</button>

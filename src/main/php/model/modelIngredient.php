@@ -10,6 +10,25 @@ class modelIngredient
         return $resultat;
     }
 
+    public static function getIngredientIdByNom($nomIngredient)
+    {
+        connexion::connect();
+        $pdo = connexion::pdo();
+
+        $requete = "SELECT idIngredient FROM Ingredient WHERE nomIngredient = :nom";
+        $stmt = $pdo->prepare($requete);
+        $stmt->bindParam(':nom', $nomIngredient, PDO::PARAM_STR);
+        $stmt->execute();
+
+        $resultat = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($resultat) {
+            return $resultat['idIngredient'];
+        } else {
+            return null;
+        }
+    }
+
     public static function getAutreIngredient($tabIngredient)
     {
         connexion::connect();
@@ -47,16 +66,6 @@ class modelIngredient
         $resultat = connexion::pdo()->prepare($requete);
         $resultat->bindParam(':idIngredient', $idIngredient);
         $resultat->bindParam(':seuilAlerteIngredient', $seuilAlerte);
-        $resultat->execute();
-        return $resultat;
-    }
-
-    public static function nouvelIngredientPizza($idPizza, $idIngredient){
-        $requete = "INSERT INTO Utilise (idPizza, idIngredient) VALUES (:idPizza, :idIngredient)";
-        connexion::connect();
-        $resultat = connexion::pdo()->prepare($requete);
-        $resultat->bindParam(':idPizza', $idPizza);
-        $resultat->bindParam(':idIngredient', $idIngredient);
         $resultat->execute();
         return $resultat;
     }

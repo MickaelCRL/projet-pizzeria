@@ -8,6 +8,11 @@ class controllerIngredient
         return modelIngredient::getIngredients();
     }
 
+    public static function getIngredientIdByNom($nomIngredient)
+    {
+        return modelIngredient::getIngredientIdByNom($nomIngredient);
+    }
+
     public static function getAutreIngredient($tabIngredient)
     {
         return modelIngredient::getAutreIngredient($tabIngredient);
@@ -22,10 +27,6 @@ class controllerIngredient
     public static function updateSeuilAlerteIngredient($idIngredient, $seuilAlerte)
     {
         return modelIngredient::updateSeuilAlerteIngredient($idIngredient, $seuilAlerte);
-    }
-
-    public static function nouvelIngredientPizza($idIngredient,$idPizza){
-        return modelIngredient::nouvelIngredientPizza($idIngredient,$idPizza);
     }
 }
 

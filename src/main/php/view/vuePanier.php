@@ -24,12 +24,19 @@
                     $id = htmlspecialchars($row['idPizza']);
                     $lienImage = htmlspecialchars($row['lienImage']);
                     $nom = htmlspecialchars($row['nomPizza']);
-                    $allergenes = htmlspecialchars($row['nomAllergene']);
+                    $idAllergene = controllerPizza::getAllergenePizza($id);
+                    $allergenes = "";
                     $quantite = $tabQuantite[$id];
                     $prix = controllerPizza::getPrixPizza($id);
                     echo "<div class='pizza-container'>";
                     echo "<img src='../static/$lienImage' alt='Pizza' class='pizza-image'>";
                     echo "<p id='pizza-title'>$nom</p>";
+                    // Affichage des allergènes
+                    while ($row = $idAllergene->fetch(PDO::FETCH_ASSOC)) {
+                        $allergenes .= htmlspecialchars($row['nomAllergene']) . ", ";
+                    }
+                    // Enlever la dernière virgule
+                    $allergenes = substr($allergenes, 0, -2);
                     echo "<p class='pizza-allergenes'>Allergènes : $allergenes</p>";
                     echo "<p class='pizza-prix'>Quantite : $quantite </p>";
                     echo "<p class='pizza-prix'>Prix : $prix €</p>";
