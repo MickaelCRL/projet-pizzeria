@@ -18,5 +18,15 @@ class controllerProduit
         return modelProduit::getProduitPanier($idProduitPanier);
 
     }
+
+    public static function addProduit($nom, $quantite, $prix, $lienImage)
+    {
+        return modelProduit::addProduit($nom, $quantite, $prix, $lienImage);
+    }
+
+    public static function deleteProduit($id)
+    {
+        return modelProduit::deleteProduit($id);
+    }
 }
 ?>

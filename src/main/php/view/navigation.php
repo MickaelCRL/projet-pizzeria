@@ -11,7 +11,9 @@
             echo "<a href='./vuePizzaClient.php'>Pizza</a>";
             echo "<a href='./vueProduit.php'>Produit</a>";}
         else if(isset($_SESSION["estGestionnaire"]) && $_SESSION["estGestionnaire"]){
-            echo "<a href='./vuePizzaGestionnaire.php'>Pizza</a>";}
+            echo "<a href='./vuePizzaGestionnaire.php'>Pizza</a>";
+            echo "<a href='./vueProduitGestionnaire.php'>Produit</a>";
+        }
              
         if (isset($_SESSION["nom"]) ) {
             echo "<a href='./vueEspaceCompte.php'>Espace compte</a>";

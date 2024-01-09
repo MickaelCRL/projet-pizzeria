@@ -30,6 +30,34 @@ class modelProduit
         return $prix;
     }
 
+    public static function addProduit($nom, $quantite, $prix, $lienImage)
+    {
+        $requete = "INSERT INTO Produit (nomProduit, quantiteProduit, prixProduit, lienImage) VALUES (:nom, :quantite, :prix, :lienImage)";
+        connexion::connect();
+        $resultat = connexion::pdo()->prepare($requete);
+        $resultat->bindParam(':nom', $nom);
+        $resultat->bindParam(':quantite', $quantite);
+        $resultat->bindParam(':prix', $prix);
+        $resultat->bindParam(':lienImage', $lienImage);
+        $resultat->execute();
+        return $resultat;
+    }
+
+    public static function deleteProduit($id)
+    {
+        $requete = "DELETE FROM Inclut WHERE idProduit = :id";
+        connexion::connect();
+        $resultat = connexion::pdo()->prepare($requete);
+        $resultat->bindParam(':id', $id);
+        $resultat->execute();
+        $requete = "DELETE FROM Produit WHERE idProduit = :id";
+        connexion::connect();
+        $resultat = connexion::pdo()->prepare($requete);
+        $resultat->bindParam(':id', $id);
+        $resultat->execute();
+        return $resultat;
+    }
+
 
 }
 
