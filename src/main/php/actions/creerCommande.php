@@ -80,6 +80,35 @@ foreach ($panier as $idPizza) {
 
     }
 }
+
+foreach ($_SESSION['panierPizzaPersonaliser'] as $idPizza => $listRecettePizza) {
+    $occurrences = array_count_values($listRecettePizza);
+    foreach ($occurrences as $recette => $count) {
+        $pizzaPersonnalierPanier = controllerPizza::getPizzaPanier($idPizza);
+        if ($pizzaPersonnalierPanier->rowCount() > 0) {
+            while ($row = $pizzaPersonnalierPanier->fetch(PDO::FETCH_ASSOC)) {
+                $lienImage = htmlspecialchars($row['lienImage']);
+                $nomPizza = htmlspecialchars($row['nomPizza']) . " Personnaliser";
+                $pizzaDuMoment = false;
+                $etatPizza = false;
+                $quantitePizzaAPrepare = $count;
+
+                $idNewpizza = controllerPizza::addPizzaAndGetId($nomPizza, $pizzaDuMoment, $recette, $quantitePizzaAPrepare, $etatPizza, $lienImage);
+                controllerContient::addContient($idCommande, $idPizza, null, $quantitePizzaAPrepare);
+
+                $elementRecette = explode(", ", $recette);
+                foreach ($elementRecette as $nomIngredient) {
+                    $idIngredient = controllerIngredient::getIngredientIdByNom($nomIngredient);
+                    controllerUtilise::addUtilise($idNewpizza, $idIngredient);
+
+                }
+
+            }
+
+        }
+    }
+}
+
 $panierProduit = $_SESSION['panierProduit'];
 
 foreach ($panierProduit as $idProduit) {
@@ -94,13 +123,6 @@ foreach ($panierProduit as $idProduit) {
         }
     }
 }
-
-
-
-
-
-
-
 
 header('Location: ../actions/viderPanier.php');
 ?>
