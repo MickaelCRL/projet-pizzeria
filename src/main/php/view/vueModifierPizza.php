@@ -17,6 +17,7 @@
 
         include("../controller/controllerPizza.php");
         include("../controller/controllerIngredient.php");
+
         $idPizza = $_GET['idPizza'];
         $pizza = controllerPizza::getPizzaPanier($idPizza);
 
@@ -24,6 +25,7 @@
             $row = $pizza->fetch(PDO::FETCH_ASSOC);
             $nomPizza = htmlspecialchars($row['nomPizza']);
             $lienImage = htmlspecialchars($row['lienImage']);
+
             // Récupérer la liste des ingrédients de la pizza personnalisée
             $ingredientsPizza = controllerPizza::getPizzaIngredient($idPizza);
             ?>
@@ -70,10 +72,45 @@
                         ?>
                     </div>
                     <button type='submit' name='enregistrer'>Enregistrer</button>
-
+                </form>
             </div>
             <div class="actions">
-                <button type="button" class="ajouter-panier-button">Ajouter au panier</button>
+                <?php
+                $prix = 0;
+                $recette = '';
+                $enregistrerClique = false;
+
+                if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['enregistrer'])) {
+                    $recette = isset($_POST['ingredient']) ? implode(", ", $_POST['ingredient']) : '';
+                    $enregistrerClique = true;
+
+                    foreach ($_POST['ingredient'] as $nomIngredient) {
+                        $prix += controllerIngredient::getPrixByNomIngredient($nomIngredient);
+                    }
+                }
+
+                $id = $_GET['idPizza'];
+                echo "<p class='pizzaPersonnaliser-prix'>Prix pizza personnaliser: $prix €</p>";
+
+                echo "<form action='../actions/ajoutPizzaPersonaliserPanier.php' method='post'>";
+                echo "<input type='hidden' name='idPizza' value='$id'>";
+                echo "<input type='hidden' name='prix' value='$prix'>";
+                echo "<input type='hidden' name='recette' value='$recette'>";
+
+                // Vérifie si des modifications ont été enregistrées avant d'ajouter au panier
+                if ($enregistrerClique) {
+                    echo "<button type='submit' id='order-button'>Ajouter au panier
+        <img src='../static/img/shop_icon.png' alt='Shop Icon' id='icon'>
+    </button>";
+                } else {
+                    echo "<button type='button' id='order-button' onclick=\"alert('Veuillez enregistrer vos modifications avant d\'ajouter au panier.')\">
+        Ajouter au panier
+        <img src='../static/img/shop_icon.png' alt='Shop Icon' id='icon'>
+    </button>";
+                }
+
+                echo "</form>";
+                ?>
             </div>
             <?php
         } else {

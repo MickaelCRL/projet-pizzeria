@@ -49,6 +49,7 @@
                     $_SESSION["panier"] = array();
                     $_SESSION["panierPizzaPersonaliser"] = array();
                     $_SESSION["listeIngredientPersonnaliser"] = array();
+                    $_SESSION['prixParRecette'] = array();
                     $_SESSION["tabQuantite"] = array();
                     $_SESSION["panierProduit"] = array();
                     $_SESSION["tabQuantiteProduit"] = array();

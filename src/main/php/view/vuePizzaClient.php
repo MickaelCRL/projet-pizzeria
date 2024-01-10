@@ -20,12 +20,14 @@
                 $id = htmlspecialchars($row['idPizza']);
                 $lienImage = htmlspecialchars($row['lienImage']);
                 $nom = htmlspecialchars($row['nomPizza']);
+                $recette = htmlspecialchars($row['recette']);
                 $idAllergene = controllerPizza::getAllergenePizza($id);
                 $allergenes = "";
                 $prix = controllerPizza::getPrixPizza($id);
                 echo "<div class='pizza-container'>";
                 echo "<img src='../static/$lienImage' alt='Pizza' class='pizza-image'>";
                 echo "<p id='pizza-title'>$nom</p>";
+                echo "<p id='pizza-recette'>$recette</p>";
                 // Affichage des allergènes
                 while ($row = $idAllergene->fetch(PDO::FETCH_ASSOC)) {
                     $allergenes .= htmlspecialchars($row['nomAllergene']) . ", ";
@@ -43,7 +45,6 @@
                 <img src='../static/img/shop_icon.png' alt='Shop Icon' id='icon'>
                 </button>";
 
-                echo "</input>";
                 // Afficher un message de confirmation ou d'erreur en fonction du contenu du panier 
                 if (isset($_GET['idPizza']) && $_GET['idPizza'] == $id && isset($_GET['quantite'])) {
                     echo "<p class='confirmation'>Pizza ajoutée au panier.</p>";
@@ -53,7 +54,6 @@
                 echo "<form action='../view/vueModifierPizza.php' method='get'>";
                 echo "<input type='hidden' name='idPizza' value='$id'>";
                 echo "<button type='submit' id='order-button' >Personnaliser</button>";
-                echo "</input>";
                 echo "</form>";
 
                 if (isset($_SESSION["estGestionnaire"]) && $_SESSION["estGestionnaire"]) {
