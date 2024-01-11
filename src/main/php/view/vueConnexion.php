@@ -43,6 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION["prenom"] = $utilisateur["prenomClient"];
             $_SESSION["panier"] = array();
             $_SESSION["panierPizzaPersonaliser"] = array();
+            $_SESSION['prixParRecette'] = array();
             $_SESSION["listeIngredientPersonnaliser"] = array();
             $_SESSION["tabQuantite"] = array();
             $_SESSION["panierProduit"] = array();

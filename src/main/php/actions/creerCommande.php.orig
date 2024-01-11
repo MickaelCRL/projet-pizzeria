@@ -125,6 +125,7 @@ foreach ($panierProduit as $idProduit) {
     }
 }
 
+<<<<<<< HEAD
 $prixCommande = $_SESSION['prixTotal'] * 1.2;
 controllerStatistiques::updateStatistiques($prixCommande);
 
@@ -135,5 +136,7 @@ controllerStatistiques::updateStatistiques($prixCommande);
 
 
 
+=======
+>>>>>>> 78083274a4cc9c0d6a063f42e3b6cd6a63f4d64b
 header('Location: ../actions/viderPanier.php');
 ?>

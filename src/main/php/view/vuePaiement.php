@@ -60,13 +60,13 @@
                 $destination = $_POST['adresse'] . ', ' . $_POST['ville'] . ', ' . $_POST['code-postal'] . ", France";
                 $distance = controllerPizzeria::calculDistancePizzeria($destination);
                 if ($distance > 30 || $distance == -1) {
-                    echo "<script>alert('Vous êtes trop loin veuillez renseigner une autre adresse $distance minutes');</script>";
+                    echo "<script>alert('Vous êtes trop loin veuillez renseigner une autre adresse');</script>";
                     $enregistrerClique = false;
                 } else {
                     $_SESSION['adresse'] = $_POST['adresse'];
                     $_SESSION['ville'] = $_POST['ville'];
                     $_SESSION['codePostal'] = $_POST['code-postal'];
-                    echo "<script>alert('Enregistré $distance minutes');</script>";
+                    echo "<script>alert('Enregistré');</script>";
                 }
             }
         }
@@ -106,6 +106,28 @@
 
                 echo "</div>";
             }
+
+            if (!empty($_SESSION['panierPizzaPersonaliser'])) {
+                echo "<div class='recap-commande-pizzas-personnalises'>";
+                foreach ($_SESSION['panierPizzaPersonaliser'] as $idPizza => $listRecettePizza) {
+                    $occurrences = array_count_values($listRecettePizza);
+                    foreach ($occurrences as $recette => $count) {
+                        $pizzaPersonnalierPanier = controllerPizza::getPizzaPanier($idPizza);
+                        if ($pizzaPersonnalierPanier->rowCount() > 0) {
+                            while ($row = $pizzaPersonnalierPanier->fetch(PDO::FETCH_ASSOC)) {
+                                $nom = htmlspecialchars($row['nomPizza']);
+                                $prixRecette = $_SESSION['prixParRecette'][$idPizza][$recette];
+                                echo "<p>Nom de la pizza : $nom Personnaliser</p>";
+                                echo "<p>Quantité : $count</p>";
+                                echo "<p>Prix unitaire : $prixRecette €</p>";
+                                echo "<hr>";
+                            }
+                        }
+                    }
+                }
+                echo "</div>";
+            }
+
             require_once("../controller/controllerProduit.php");
 
             if (!empty($_SESSION['panierProduit']) && !empty($_SESSION['tabQuantiteProduit'])) {

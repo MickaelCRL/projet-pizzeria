@@ -7,7 +7,7 @@
 </head>
 
 <body>
-    <?php include("../view/menu.php"); ?>
+    <?php include("../view/navigation.php"); ?>
 
     <form id="form_field" method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
         <label for="nom">Nom :</label>
@@ -44,13 +44,15 @@
         if ($password != $confirm_password) {
             echo "<p class='erreur'> Votre mot de passe et sa confirmation ne correspondent pas. Essayez à nouveau !</p>";
         } else {
-            if (isset($_SESSION["idCompteClient"])) {$idCompteClient = $_SESSION["idCompteClient"];}
-            else{$idGestionnaire = $_SESSION["idGestionnaire"];}
-            $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-            if(isset($_SESSION["idCompteClient"])){
-                $resultat = controllerClient::updateCompteClient($idCompteClient, $nom, $prenom, $email, $telephone, $passwordHash);
+            if (isset($_SESSION["idCompteClient"])) {
+                $idCompteClient = $_SESSION["idCompteClient"];
+            } else {
+                $idGestionnaire = $_SESSION["idGestionnaire"];
             }
-            else{
+            $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+            if (isset($_SESSION["idCompteClient"])) {
+                $resultat = controllerClient::updateCompteClient($idCompteClient, $nom, $prenom, $email, $telephone, $passwordHash);
+            } else {
                 $resultat = controllerGestionnaire::updateGestionnaire($idGestionnaire, $nom, $prenom, $email, $passwordHash);
             }
             if ($resultat) {

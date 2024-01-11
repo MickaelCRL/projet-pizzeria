@@ -24,6 +24,7 @@
                     $id = htmlspecialchars($row['idPizza']);
                     $lienImage = htmlspecialchars($row['lienImage']);
                     $nom = htmlspecialchars($row['nomPizza']);
+                    $recette = htmlspecialchars($row['recette']);
                     $idAllergene = controllerPizza::getAllergenePizza($id);
                     $allergenes = "";
                     $quantite = $tabQuantite[$id];
@@ -31,6 +32,7 @@
                     echo "<div class='pizza-container'>";
                     echo "<img src='../static/$lienImage' alt='Pizza' class='pizza-image'>";
                     echo "<p id='pizza-title'>$nom</p>";
+                    echo "<p id='pizza-recette'>$recette</p>";
                     // Affichage des allergènes
                     while ($row = $idAllergene->fetch(PDO::FETCH_ASSOC)) {
                         $allergenes .= htmlspecialchars($row['nomAllergene']) . ", ";
@@ -45,6 +47,47 @@
                     echo "<button type='submit' class='delete-pizza-button'>Supprimer</button>";
                     echo "</form>";
                     echo "</div>";
+                }
+
+
+            }
+
+        }
+
+        foreach ($_SESSION['panierPizzaPersonaliser'] as $idPizza => $listRecettePizza) {
+            $occurrences = array_count_values($listRecettePizza);
+            foreach ($occurrences as $recette => $count) {
+                $pizzaPersonnalierPanier = controllerPizza::getPizzaPanier($idPizza);
+                if ($pizzaPersonnalierPanier->rowCount() > 0) {
+                    // Parcourir les résultats et afficher les pizzas 
+                    while ($row = $pizzaPersonnalierPanier->fetch(PDO::FETCH_ASSOC)) {
+                        $lienImage = htmlspecialchars($row['lienImage']);
+                        $nom = htmlspecialchars($row['nomPizza']) . ' Personnaliser';
+                        $idAllergene = controllerPizza::getAllergenePizza($idPizza);
+                        $allergenes = "";
+                        $quantite = $count;
+                        $prixRecette = $_SESSION['prixParRecette'][$idPizza][$recette];
+                        echo "<div class='pizza-container'>";
+                        echo "<img src='../static/$lienImage' alt='Pizza' class='pizza-image'>";
+                        echo "<p id='pizza-title'>$nom</p>";
+                        echo "<p id='pizza-recette'>$recette</p>";
+                        // Affichage des allergènes
+                        while ($row = $idAllergene->fetch(PDO::FETCH_ASSOC)) {
+                            $allergenes .= htmlspecialchars($row['nomAllergene']) . ", ";
+                        }
+                        // Enlever la dernière virgule
+                        $allergenes = substr($allergenes, 0, -2);
+                        echo "<p class='pizza-allergenes'>Allergènes : $allergenes</p>";
+                        echo "<p class='pizza-prix'>Quantite : $quantite </p>";
+                        echo "<p class='pizza-prix'>Prix : $prixRecette €</p>";
+                        echo "<form action='../actions/suppressionPizzaPersonnaliserPanier.php' method='post'>";
+                        echo "<input type='hidden' name='idPizza' value='$idPizza'>";
+                        echo "<input type='hidden' name='recette' value='$recette'>";
+                        echo "<input type='hidden' name='prixRecette' value='$prixRecette'>";
+                        echo "<button type='submit' class='delete-pizza-button'>Supprimer</button>";
+                        echo "</form>";
+                        echo "</div>";
+                    }
                 }
 
 
@@ -85,7 +128,7 @@
         echo "<br>";
         echo "<p id='prix'> Prix total de votre commande : $prixTotal € </p>";
 
-        if (!empty($_SESSION['panier']) || !empty($_SESSION['panierProduit'])) {
+        if (!empty($_SESSION['panier']) || !empty($_SESSION['panierProduit']) || !empty($_SESSION["panierPizzaPersonaliser"]) && $_SESSION['prixTotal'] > 0) {
             echo "<form action='../view/vuePaiement.php' method='get'>";
             echo "<button type='submit'>Commander</button>";
             echo "</form>";

@@ -6,5 +6,18 @@
         "src/main/java/livreur/view",
         "src/main/java/livreur/model",
         "src/main/java/pizzaiolo"
+    ],
+
+    "java.project.referencedLibraries": [
+        "lib/mysql-connector-j-8.2.0.jar",
+        "lib/json-20231013.jar",
+        "lib/httpcore-4.4.16.jar",
+        "lib/httpclient-4.5.14.jar",
+        "lib/commons-logging-1.2.jar",
+        "lib/commons-codec-1.11.jar"
+        
     ]
+    
+
+    
 }
