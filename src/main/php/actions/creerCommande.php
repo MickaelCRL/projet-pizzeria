@@ -13,6 +13,7 @@ include_once("../controller/controllerProduit.php");
 include_once("../controller/controllerInclut.php");
 include_once("../controller/controllerUtilise.php");
 include_once("../controller/controllerIngredient.php");
+include_once("../controller/controllerStatistiques.php");
 
 // $_SESSION['panier'] 
 // $_SESSION['tabQuantite'] 
@@ -94,6 +95,9 @@ foreach ($panierProduit as $idProduit) {
         }
     }
 }
+
+$prixCommande = $_SESSION['prixTotal'] * 1.2;
+controllerStatistiques::updateStatistiques($prixCommande);
 
 
 

@@ -81,7 +81,7 @@
         }
 
         // Afficher le prix total du panier
-        $prixTotal = $_SESSION['prixTotal'];
+        $prixTotal = $_SESSION['prixTotal'] * 1.2;
         echo "<br>";
         echo "<p id='prix'> Prix total de votre commande : $prixTotal € </p>";
 

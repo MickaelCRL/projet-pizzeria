@@ -9,7 +9,10 @@ class controllerStatistiques
             case 'journalier':
                 $resultat = modelStatistiques::getStatistiquesJournalier();
                 if($resultat->rowCount() == 0){
-                    return null;
+                    modelStatistiques::createStatistiquesJournalier(0);
+                    $resultat = modelStatistiques::getStatistiquesJournalier();
+                    $stat = $resultat->fetch(PDO::FETCH_ASSOC);
+                    return $stat['valeurStatistique'];
                 } else {
                     $stat = $resultat->fetch(PDO::FETCH_ASSOC);
                     return $stat['valeurStatistique'];
@@ -17,7 +20,10 @@ class controllerStatistiques
             case 'hebdomadaire':
                 $resultat = modelStatistiques::getStatistiquesHebdomadaire();
                 if($resultat->rowCount() == 0){
-                    return null;
+                    modelStatistiques::createStatistiquesHebdomadaire(0);
+                    $resultat = modelStatistiques::getStatistiquesHebdomadaire();
+                    $stat = $resultat->fetch(PDO::FETCH_ASSOC);
+                    return $stat['valeurStatistique'];
                 } else {
                     $stat = $resultat->fetch(PDO::FETCH_ASSOC);
                     return $stat['valeurStatistique'];
@@ -25,7 +31,10 @@ class controllerStatistiques
             case 'mensuel':
                 $resultat = modelStatistiques::getStatistiquesMensuel();
                 if($resultat->rowCount() == 0){
-                    return null;
+                    modelStatistiques::createStatistiquesMensuel(0);
+                    $resultat = modelStatistiques::getStatistiquesMensuel();
+                    $stat = $resultat->fetch(PDO::FETCH_ASSOC);
+                    return $stat['valeurStatistique'];
                 } else {
                     $stat = $resultat->fetch(PDO::FETCH_ASSOC);
                     return $stat['valeurStatistique'];
@@ -33,6 +42,10 @@ class controllerStatistiques
             default:
                 return null;
         }
+    }
+
+    public static function updateStatistiques($prixCommande){
+        modelStatistiques::updateStatistiques($prixCommande);
     }
 
 }
